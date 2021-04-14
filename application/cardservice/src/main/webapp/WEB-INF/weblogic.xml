@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app
         http://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd">
 
-    <wls:context-root>/ecards</wls:context-root>
+    <wls:context-root>/cardservice</wls:context-root>
     <wls:container-descriptor>
         <wls:prefer-application-packages>
             <wls:package-name>org.slf4j.*</wls:package-name>

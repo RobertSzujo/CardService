@@ -19,19 +19,16 @@ public class CardSessionServiceImpl implements CardSessionService {
     }
 
     @Override
-    @Transactional
     public List<Card> requestAllCards() {
         return cardDAO.requestAllCards();
     }
 
     @Override
-    @Transactional
     public Card requestCard(String theCardNumber) {
         return cardDAO.requestCard(theCardNumber);
     }
 
     @Override
-    @Transactional
     public void createCard(Card theCard) {
         cardDAO.createCard(theCard);
     }
