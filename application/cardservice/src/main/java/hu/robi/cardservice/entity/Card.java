@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cards")
+@Table(name="CARD")
 public class Card {
 
     //define fields

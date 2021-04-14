@@ -2,10 +2,8 @@ package hu.robi.cardservice.rest;
 
 import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.sessionservice.CardSessionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -13,12 +11,10 @@ import java.util.List;
 @RequestMapping("/ecards")
 public class CardRestController {
 
-    private CardSessionService cardSessionService;
+    private final CardSessionService cardSessionService;
 
-    //inject card DAO (refactor later)
-    @Autowired
-    public CardRestController(CardSessionService theCardSessionService) {
-        cardSessionService = theCardSessionService;
+    public CardRestController(CardSessionService cardSessionService) {
+        this.cardSessionService = cardSessionService;
     }
 
     //TODO: delete this feature later, it is only for debug!
@@ -32,13 +28,7 @@ public class CardRestController {
     @GetMapping("/{cardNumber}")
     public Card requestCard(@PathVariable String cardNumber) {
         Card theCard = cardSessionService.requestCard(cardNumber);
-
-        if (theCard == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Card number not found - " + cardNumber);
-        }
-        else {
-            return theCard;
-        }
+        return theCard;
     }
 
     //add mapping for POST /ecards - add new card
