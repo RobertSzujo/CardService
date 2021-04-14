@@ -1,9 +1,9 @@
 package hu.robi.cardservice.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="CARD")
@@ -23,9 +23,16 @@ public class Card {
     @Column(name="disabled")
     private char isDisabledRaw;
 
-    //TODO: define owner, type, contact info
+    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name="owner_id")
+    private Owner owner;
+
+    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name="card_type_id")
+    private CardType cardType;
 
     //define constructors
+
     public Card() {
 
     }
@@ -71,8 +78,23 @@ public class Card {
         this.isDisabledRaw = isDisabledRaw;
     }
 
-    //define tostring
+    public Owner getOwner() {
+        return owner;
+    }
 
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(CardType cardType) {
+        this.cardType = cardType;
+    }
+
+    //define tostring
 
     @Override
     public String toString() {
@@ -81,6 +103,9 @@ public class Card {
                 ", validThru='" + validThru + '\'' +
                 ", card_hash='" + card_hash + '\'' +
                 ", isDisabledRaw=" + isDisabledRaw +
+                ", owner=" + owner +
+                ", cardType=" + cardType +
                 '}';
+
     }
 }
