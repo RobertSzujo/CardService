@@ -18,7 +18,7 @@ CREATE TABLE OWNER
 CREATE TABLE CONTACT
 ( contact_id int NOT NULL PRIMARY KEY,
   owner_id int NOT NULL,
-  contact_type CHAR(1) NOT NULL,
+  contact_type VARCHAR(5) NOT NULL,
   contact VARCHAR2(128) );
   
 CREATE TABLE CARD_TYPE
