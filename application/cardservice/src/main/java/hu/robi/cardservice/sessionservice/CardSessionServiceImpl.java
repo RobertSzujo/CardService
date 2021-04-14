@@ -1,35 +1,32 @@
 package hu.robi.cardservice.sessionservice;
 
-import hu.robi.cardservice.dao.CardDAO;
+import hu.robi.cardservice.dao.CardRepository;
 import hu.robi.cardservice.entity.Card;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 public class CardSessionServiceImpl implements CardSessionService {
 
-    private CardDAO cardDAO;
+    private final CardRepository cardRepository;
 
-    @Autowired
-    public CardSessionServiceImpl (CardDAO theCardDAO) {
-        cardDAO = theCardDAO;
+    public CardSessionServiceImpl(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
     }
 
     @Override
     public List<Card> requestAllCards() {
-        return cardDAO.requestAllCards();
+        return cardRepository.findAll();
     }
 
     @Override
     public Card requestCard(String theCardNumber) {
-        return cardDAO.requestCard(theCardNumber);
+        return cardRepository.getOne(theCardNumber);
     }
 
     @Override
     public void createCard(Card theCard) {
-        cardDAO.createCard(theCard);
+        cardRepository.save(theCard);
     }
 }
