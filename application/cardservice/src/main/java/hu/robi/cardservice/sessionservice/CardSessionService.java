@@ -1,10 +1,10 @@
-package hu.robi.cardservice.dao;
+package hu.robi.cardservice.sessionservice;
 
 import hu.robi.cardservice.entity.Card;
 
 import java.util.List;
 
-public interface CardDAO {
+public interface CardSessionService {
 
     public List<Card> requestAllCards();
 

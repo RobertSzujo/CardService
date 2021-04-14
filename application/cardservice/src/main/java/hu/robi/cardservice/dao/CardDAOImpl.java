@@ -23,8 +23,8 @@ public class CardDAOImpl implements CardDAO {
         entityManager = theEntityManager;
     }
 
+    //TODO: delete this function, it is only for debug!
     @Override
-    @Transactional
     public List<Card> requestAllCards() {
 
         //get current hibernate session
@@ -38,5 +38,29 @@ public class CardDAOImpl implements CardDAO {
 
         //return the results
         return cards;
+    }
+
+    @Override
+    public Card requestCard(String theCardNumber) {
+
+        //get current hibernate session
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        //get the card data
+        Card theCard = currentSession.get(Card.class, theCardNumber);
+
+        //return card data
+        return theCard;
+    }
+
+    @Override
+    public void createCard(Card theCard) {
+
+        //get current hibernate session
+        Session currentSession = entityManager.unwrap(Session.class);
+
+        //save card
+        currentSession.save(theCard);
+
     }
 }
