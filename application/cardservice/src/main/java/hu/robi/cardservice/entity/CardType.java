@@ -8,7 +8,8 @@ public class CardType {
 
     //define fields
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CARD_TYPE_SEQGEN")
+    @SequenceGenerator(name = "SEQGEN", sequenceName = "CARD_TYPE_SEQ", allocationSize = 1)
     @Column(name="card_type_id")
     private int cardTypeId;
 

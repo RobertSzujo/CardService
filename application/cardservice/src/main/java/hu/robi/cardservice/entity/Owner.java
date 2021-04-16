@@ -9,7 +9,8 @@ public class Owner {
 
     //define fields
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="OWNER_SEQGEN")
+    @SequenceGenerator(name = "OWNER_SEQGEN", sequenceName = "OWNER_SEQ", allocationSize = 1)
     @Column(name="owner_id")
     private int ownerId;
 
