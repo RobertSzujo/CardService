@@ -1,6 +1,7 @@
 package hu.robi.cardservice.rest;
 
 import hu.robi.cardservice.entity.Card;
+import hu.robi.cardservice.entity.RestCard;
 import hu.robi.cardservice.sessionservice.CardSessionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,8 @@ public class CardRestController {
 
     //add mapping for GET /ecards/{cardNumber}
     @GetMapping("/{cardNumber}")
-    public Card requestCard(@PathVariable String cardNumber) {
-        Card theCard = cardSessionService.requestCard(cardNumber);
+    public RestCard requestCard(@PathVariable String cardNumber) {
+        RestCard theCard = cardSessionService.requestCard(cardNumber);
         return theCard;
     }
 
