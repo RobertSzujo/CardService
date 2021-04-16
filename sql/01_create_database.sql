@@ -24,3 +24,15 @@ CREATE TABLE CONTACT
 CREATE TABLE CARD_TYPE
 ( card_type_id int NOT NULL PRIMARY KEY,
   card_type VARCHAR2(128) );
+  
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (1, 'Mastercard George bankkártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (2, 'Visa George bankkártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (3, 'Mastercard Standard bankkártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (4, 'Mastercard Gold bankkártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (5, 'Mastercard World Gold bankkártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (6, 'Mastercard Standard Devizakártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (7, 'Mastercard Diák bankkártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (8, 'Mastercard Start bankkártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (9, 'Visa Classic bankkártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (10, 'Visa virtuális bankkártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (11, 'Visa Electron bankkártya');
