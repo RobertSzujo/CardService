@@ -36,7 +36,7 @@ public class CardRestController {
     @PostMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public RestCard createCard(@RequestBody RestCard theRestCard) {
-        //cardSessionService.createCard(theRestCard);
+        cardSessionService.createCard(theRestCard);
         return theRestCard;
     }
 }

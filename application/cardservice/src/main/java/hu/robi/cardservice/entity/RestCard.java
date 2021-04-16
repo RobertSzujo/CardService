@@ -126,15 +126,28 @@ public class RestCard {
         this.contactInfo = convertContactListToRestContactList(theCard.getOwner().getContacts());
     }
 
+    //TODO: refactor this code and fix problems (see below)
     public Card convertRestCardToCard() {
         Card theCard = new Card();
-        theCard.getCardType().setCardType(this.cardType);
+
+        //create card type and inject into card object
+        CardType theCardType = new CardType();
+        theCardType.setCardType(this.cardType); //TODO: If card type exists, use its row instead of creating new
+        theCard.setCardType(theCardType);
+
         theCard.setCardNumber(this.cardNumber);
         theCard.setValidThru(this.validThru);
-        theCard.getOwner().setOwner(this.owner);
+
+        //create owner and inject into card object
+        Owner theOwner = new Owner();
+        theOwner.setOwner(this.owner);
+        theCard.setOwner(theOwner); //TODO: If owner exists, use its row instead of creating new
+
+        //create list of contacts and inject into card object
         theCard.getOwner().setContacts(convertRestContactListToContactList(contactInfo, theCard.getOwner().getOwnerId()));
         theCard.setIsDisabledRaw('N');
-        //hash
+
+        //TODO: add hash calculation
         return theCard;
     }
 }
