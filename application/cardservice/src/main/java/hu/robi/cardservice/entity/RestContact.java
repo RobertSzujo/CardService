@@ -14,9 +14,8 @@ public class RestContact {
 
     //define constructor
 
-    public RestContact(Contact theContact) {
-        this.type = theContact.getContactType();
-        this.contact = theContact.getContact();
+    public RestContact() {
+
     }
 
     //define getter/setter
@@ -35,5 +34,13 @@ public class RestContact {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    //define method
+
+    public void convertContactToRestContact(Contact theContact)
+    {
+        this.type = theContact.getContactType();
+        this.contact = theContact.getContact();
     }
 }

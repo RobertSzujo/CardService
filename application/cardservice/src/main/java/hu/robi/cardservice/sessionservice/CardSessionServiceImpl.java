@@ -29,7 +29,8 @@ public class CardSessionServiceImpl implements CardSessionService {
         Optional<Card> result = cardRepository.findById(theCardNumber);
         RestCard theCard = null;
         if (result.isPresent()) {
-            theCard = new RestCard(result.get());
+            theCard = new RestCard();
+            theCard.convertCardToRestCard(result.get());
         }
         else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -38,7 +39,8 @@ public class CardSessionServiceImpl implements CardSessionService {
     }
 
     @Override
-    public void createCard(Card theCard) {
+    public void createCard(RestCard theRestCard) {
+        Card theCard = theRestCard.convertRestCardToCard();
         cardRepository.save(theCard);
     }
 }

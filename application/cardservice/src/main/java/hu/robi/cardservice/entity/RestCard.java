@@ -4,7 +4,6 @@ package hu.robi.cardservice.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class RestCard {
     //define fields
@@ -25,13 +24,8 @@ public class RestCard {
 
     //define constructor
 
-    public RestCard(Card theCard) {
-        this.cardType = theCard.getCardType().getCardType();
-        this.cardNumber = theCard.getCardNumber();
-        this.validThru = theCard.getValidThru();
-        this.disabled = disabledCharToBoolean(theCard.getIsDisabledRaw());
-        this.owner = theCard.getOwner().getOwner();
-        this.contactInfo = createRestContactList(theCard.getOwner().getContacts());
+    public RestCard() {
+
     }
 
     //define getters/setters
@@ -93,16 +87,54 @@ public class RestCard {
         return result;
     }
 
-    private List<RestContact> createRestContactList (List<Contact> contactList)
+    private List<RestContact> convertContactListToRestContactList(List<Contact> contactList)
     {
         List<RestContact> result = new ArrayList<>();
 
         for (Contact contact : contactList)
         {
-            RestContact currentRestContact = new RestContact(contact);
+            RestContact currentRestContact = new RestContact();
+            currentRestContact.convertContactToRestContact(contact);
             result.add(currentRestContact);
         }
 
         return result;
+    }
+
+    private List<Contact> convertRestContactListToContactList(List<RestContact> restContactList, int ownerId)
+    {
+        List<Contact> result = new ArrayList<>();
+
+        for (RestContact contact : restContactList)
+        {
+            Contact currentContact = new Contact();
+            currentContact.setOwnerId(ownerId);
+            currentContact.setContactType(contact.getType());
+            currentContact.setContact(contact.getContact());
+            result.add(currentContact);
+        }
+
+        return result;
+    }
+
+    public void convertCardToRestCard(Card theCard) {
+        this.cardType = theCard.getCardType().getCardType();
+        this.cardNumber = theCard.getCardNumber();
+        this.validThru = theCard.getValidThru();
+        this.disabled = disabledCharToBoolean(theCard.getIsDisabledRaw());
+        this.owner = theCard.getOwner().getOwner();
+        this.contactInfo = convertContactListToRestContactList(theCard.getOwner().getContacts());
+    }
+
+    public Card convertRestCardToCard() {
+        Card theCard = new Card();
+        theCard.getCardType().setCardType(this.cardType);
+        theCard.setCardNumber(this.cardNumber);
+        theCard.setValidThru(this.validThru);
+        theCard.getOwner().setOwner(this.owner);
+        theCard.getOwner().setContacts(convertRestContactListToContactList(contactInfo, theCard.getOwner().getOwnerId()));
+        theCard.setIsDisabledRaw('N');
+        //hash
+        return theCard;
     }
 }
