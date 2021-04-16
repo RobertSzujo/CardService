@@ -39,7 +39,8 @@ public class CardSessionServiceImpl implements CardSessionService {
     }
 
     @Override
-    public void createCard(Card theCard) {
+    public void createCard(RestCard theRestCard) {
+        Card theCard = theRestCard.convertRestCardToCard();
         cardRepository.save(theCard);
     }
 }
