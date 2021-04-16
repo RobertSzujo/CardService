@@ -126,15 +126,4 @@ public class RestCard {
         this.contactInfo = convertContactListToRestContactList(theCard.getOwner().getContacts());
     }
 
-    public Card convertRestCardToCard() {
-        Card theCard = new Card();
-        theCard.getCardType().setCardType(this.cardType);
-        theCard.setCardNumber(this.cardNumber);
-        theCard.setValidThru(this.validThru);
-        theCard.getOwner().setOwner(this.owner);
-        theCard.getOwner().setContacts(convertRestContactListToContactList(contactInfo, theCard.getOwner().getOwnerId()));
-        theCard.setIsDisabledRaw('N');
-        //hash
-        return theCard;
-    }
 }

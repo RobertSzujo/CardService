@@ -11,5 +11,5 @@ public interface CardSessionService {
 
     public RestCard requestCard(String theCardNumber);
 
-    public void createCard(RestCard theRestCard);
+    public void createCard(Card theCard);
 }
