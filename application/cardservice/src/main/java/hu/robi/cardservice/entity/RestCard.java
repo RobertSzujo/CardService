@@ -5,6 +5,7 @@ package hu.robi.cardservice.entity;
 import hu.robi.cardservice.dao.CardTypeRepository;
 import hu.robi.cardservice.dao.ContactRepository;
 import hu.robi.cardservice.dao.OwnerRepository;
+import hu.robi.cardservice.encryption.EncryptService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,13 +105,12 @@ public class RestCard {
         createCardType(cardTypeRepository, theCard);
         createOwner(ownerRepository, theCard);
         theCard.getOwner().setContacts(convertRestContactListToContactList(contactInfo, theCard.getOwner().getOwnerId(), contactRepository));
-        //TODO: add hash calculation
+        theCard.setCardHash(createHash(this.cardNumber, this.validThru, this.cvv));
 
         return theCard;
     }
 
     private void createOwner(OwnerRepository ownerRepository, Card theCard) {
-        //create owner and inject into card object
         Owner theOwner = new Owner();
         //use a matching owner if found, or create a new if it does not exist
         Optional<Owner> matchingOwner = ownerRepository.findByOwner(this.owner);
@@ -124,7 +124,6 @@ public class RestCard {
     }
 
     private void createCardType(CardTypeRepository cardTypeRepository, Card theCard) {
-        //create card type and inject into card object
         CardType theCardType = new CardType();
         //use a matching card type if found, or create a new if it does not exist
         Optional<CardType> matchingCardType = cardTypeRepository.findByCardType(this.cardType);
@@ -158,6 +157,7 @@ public class RestCard {
         for (RestContact restContact : restContactList)
         {
             Contact currentContact = new Contact();
+            //use a matching contact if found, or create a new if it does not exist
             Optional<Contact> matchingContact = contactRepository.findByContact(restContact.getContact());
 
             if (matchingContact.isPresent()) {
@@ -183,4 +183,13 @@ public class RestCard {
         }
         return result;
     }
+
+    private String createHash (String cardNumber, String validThru, String cvv)
+    {
+        EncryptService encryptService = new EncryptService();
+        String result= encryptService.EncryptString(cardNumber+validThru+cvv);
+
+        return result;
+    }
+
 }

@@ -1,9 +1,6 @@
 package hu.robi.cardservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name="CARD")
@@ -18,7 +15,7 @@ public class Card {
     private String validThru;
 
     @Column(name="card_hash")
-    private String card_hash;
+    private String cardHash;
 
     @Column(name="disabled")
     private char isDisabledRaw;
@@ -37,10 +34,10 @@ public class Card {
 
     }
 
-    public Card(String cardNumber, String validThru, String card_hash, char isDisabledRaw) {
+    public Card(String cardNumber, String validThru, String cardHash, char isDisabledRaw) {
         this.cardNumber = cardNumber;
         this.validThru = validThru;
-        this.card_hash = card_hash;
+        this.cardHash = cardHash;
         this.isDisabledRaw = isDisabledRaw;
     }
 
@@ -62,12 +59,12 @@ public class Card {
         this.validThru = validThru;
     }
 
-    public String getCard_hash() {
-        return card_hash;
+    public String getCardHash() {
+        return cardHash;
     }
 
-    public void setCard_hash(String card_hash) {
-        this.card_hash = card_hash;
+    public void setCardHash(String cardHash) {
+        this.cardHash = cardHash;
     }
 
     public char getIsDisabledRaw() {
@@ -101,7 +98,7 @@ public class Card {
         return "Card{" +
                 "cardNumber='" + cardNumber + '\'' +
                 ", validThru='" + validThru + '\'' +
-                ", card_hash='" + card_hash + '\'' +
+                ", card_hash='" + cardHash + '\'' +
                 ", isDisabledRaw=" + isDisabledRaw +
                 ", owner=" + owner +
                 ", cardType=" + cardType +
