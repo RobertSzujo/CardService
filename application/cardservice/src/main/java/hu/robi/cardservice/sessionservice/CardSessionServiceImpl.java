@@ -66,7 +66,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         //get card by card number (if exists)
         Optional<Card> result = cardRepository.findById(cardNumber);
         if (!result.isPresent()) {
-            return false;
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         Card theCard = result.get();
 
@@ -90,5 +90,21 @@ public class CardSessionServiceImpl implements CardSessionService {
 
         //return true if everything is OK
         return true;
+    }
+
+    @Override
+    public void disableCard(String cardNumber) {
+        //get card by card number (if exists)
+        Optional<Card> result = cardRepository.findById(cardNumber);
+        if (!result.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        Card theCard = result.get();
+
+        //disable card
+        theCard.setIsDisabledRaw('Y');
+
+        cardRepository.save(theCard);
+
     }
 }

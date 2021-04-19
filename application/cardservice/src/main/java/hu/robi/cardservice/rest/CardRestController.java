@@ -35,9 +35,8 @@ public class CardRestController {
     //add mapping for POST /ecards - add new card
     @PostMapping("/")
     @ResponseStatus(HttpStatus.OK)
-    public RestCard createCard(@RequestBody RestCard theRestCard) {
+    public void createCard(@RequestBody RestCard theRestCard) {
         cardSessionService.createCard(theRestCard);
-        return theRestCard;
     }
 
     //add mapping for POST /ecards/validate - validate card
@@ -51,5 +50,12 @@ public class CardRestController {
         else {
             return "INVALID";
         }
+    }
+
+    //add mapping for PUT /ecards/{cardNumber}
+    @PutMapping("/{cardNumber}")
+    @ResponseStatus(HttpStatus.OK)
+    public void disableCard(@PathVariable String cardNumber) {
+        cardSessionService.disableCard(cardNumber);
     }
 }

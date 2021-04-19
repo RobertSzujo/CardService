@@ -14,4 +14,6 @@ public interface CardSessionService {
     public void createCard(RestCard inputRestCard);
 
     public boolean validateCard(RestCard inputRestCard);
+
+    public void disableCard(String cardNumber);
 }
