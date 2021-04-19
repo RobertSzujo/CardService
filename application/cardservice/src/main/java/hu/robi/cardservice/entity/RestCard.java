@@ -2,8 +2,14 @@ package hu.robi.cardservice.entity;
 
 //This entity converts data between the database-linked Card entity and a REST-compatible form vice-versa.
 
+import hu.robi.cardservice.dao.CardTypeRepository;
+import hu.robi.cardservice.dao.ContactRepository;
+import hu.robi.cardservice.dao.OwnerRepository;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 public class RestCard {
     //define fields
@@ -14,7 +20,7 @@ public class RestCard {
 
     private String validThru;
 
-    private String CVV; //can only set
+    private String cvv; //can only set
 
     private boolean disabled; //can only get
 
@@ -54,8 +60,8 @@ public class RestCard {
         this.validThru = validThru;
     }
 
-    public void setCVV(String CVV) {
-        this.CVV = CVV;
+    public void setCVV(String cvv) {
+        this.cvv = cvv;
     }
 
     public boolean getDisabled() {
@@ -78,13 +84,57 @@ public class RestCard {
         this.contactInfo = contactInfo;
     }
 
-    private boolean disabledCharToBoolean (char disabledChar)
-    {
-        boolean result = false;
-        if (disabledChar == 'Y') {
-            result = true;
+    public void convertCardToRestCard(Card theCard) {
+        this.cardType = theCard.getCardType().getCardType();
+        this.cardNumber = theCard.getCardNumber();
+        this.validThru = theCard.getValidThru();
+        this.disabled = disabledCharToBoolean(theCard.getIsDisabledRaw());
+        this.owner = theCard.getOwner().getOwner();
+        this.contactInfo = convertContactListToRestContactList(theCard.getOwner().getContacts());
+    }
+
+    //TODO: refactor this code
+    public Card convertRestCardToCard(CardTypeRepository cardTypeRepository, OwnerRepository ownerRepository, ContactRepository contactRepository) {
+
+        Card theCard = new Card();
+
+        theCard.setCardNumber(this.cardNumber);
+        theCard.setValidThru(this.validThru);
+        theCard.setIsDisabledRaw('N');
+        createCardType(cardTypeRepository, theCard);
+        createOwner(ownerRepository, theCard);
+        theCard.getOwner().setContacts(convertRestContactListToContactList(contactInfo, theCard.getOwner().getOwnerId(), contactRepository));
+        //TODO: add hash calculation
+
+        return theCard;
+    }
+
+    private void createOwner(OwnerRepository ownerRepository, Card theCard) {
+        //create owner and inject into card object
+        Owner theOwner = new Owner();
+        //use a matching owner if found, or create a new if it does not exist
+        Optional<Owner> matchingOwner = ownerRepository.findByOwner(this.owner);
+        if (matchingOwner.isPresent()) {
+            theOwner = (matchingOwner.get());
         }
-        return result;
+        else {
+            theOwner.setOwner(this.owner);
+        }
+        theCard.setOwner(theOwner);
+    }
+
+    private void createCardType(CardTypeRepository cardTypeRepository, Card theCard) {
+        //create card type and inject into card object
+        CardType theCardType = new CardType();
+        //use a matching card type if found, or create a new if it does not exist
+        Optional<CardType> matchingCardType = cardTypeRepository.findByCardType(this.cardType);
+        if (matchingCardType.isPresent()) {
+            theCardType = (matchingCardType.get());
+        }
+        else {
+            theCardType.setCardType(this.cardType);
+        }
+        theCard.setCardType(theCardType);
     }
 
     private List<RestContact> convertContactListToRestContactList(List<Contact> contactList)
@@ -101,53 +151,36 @@ public class RestCard {
         return result;
     }
 
-    private List<Contact> convertRestContactListToContactList(List<RestContact> restContactList, int ownerId)
+    private List<Contact> convertRestContactListToContactList(List<RestContact> restContactList, int ownerId, ContactRepository contactRepository)
     {
         List<Contact> result = new ArrayList<>();
 
-        for (RestContact contact : restContactList)
+        for (RestContact restContact : restContactList)
         {
             Contact currentContact = new Contact();
-            currentContact.setOwnerId(ownerId);
-            currentContact.setContactType(contact.getType());
-            currentContact.setContact(contact.getContact());
+            Optional<Contact> matchingContact = contactRepository.findByContact(restContact.getContact());
+
+            if (matchingContact.isPresent()) {
+                currentContact = matchingContact.get();
+            }
+            else {
+                currentContact.setOwnerId(ownerId);
+                currentContact.setContactType(restContact.getType());
+                currentContact.setContact(restContact.getContact());
+            }
+
             result.add(currentContact);
         }
 
         return result;
     }
 
-    public void convertCardToRestCard(Card theCard) {
-        this.cardType = theCard.getCardType().getCardType();
-        this.cardNumber = theCard.getCardNumber();
-        this.validThru = theCard.getValidThru();
-        this.disabled = disabledCharToBoolean(theCard.getIsDisabledRaw());
-        this.owner = theCard.getOwner().getOwner();
-        this.contactInfo = convertContactListToRestContactList(theCard.getOwner().getContacts());
-    }
-
-    //TODO: refactor this code and fix problems (see below)
-    public Card convertRestCardToCard() {
-        Card theCard = new Card();
-
-        //create card type and inject into card object
-        CardType theCardType = new CardType();
-        theCardType.setCardType(this.cardType); //TODO: If card type exists, use its row instead of creating new
-        theCard.setCardType(theCardType);
-
-        theCard.setCardNumber(this.cardNumber);
-        theCard.setValidThru(this.validThru);
-
-        //create owner and inject into card object
-        Owner theOwner = new Owner();
-        theOwner.setOwner(this.owner);
-        theCard.setOwner(theOwner); //TODO: If owner exists, use its row instead of creating new
-
-        //create list of contacts and inject into card object
-        theCard.getOwner().setContacts(convertRestContactListToContactList(contactInfo, theCard.getOwner().getOwnerId()));
-        theCard.setIsDisabledRaw('N');
-
-        //TODO: add hash calculation
-        return theCard;
+    private boolean disabledCharToBoolean (char disabledChar)
+    {
+        boolean result = false;
+        if (disabledChar == 'Y') {
+            result = true;
+        }
+        return result;
     }
 }

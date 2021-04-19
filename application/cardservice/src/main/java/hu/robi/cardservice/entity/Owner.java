@@ -15,7 +15,7 @@ public class Owner {
     private int ownerId;
 
     @Column(name="owner")
-    private String Owner;
+    private String owner;
 
     @OneToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="owner_id")
@@ -29,7 +29,7 @@ public class Owner {
 
     public Owner(int ownerId, String owner) {
         this.ownerId = ownerId;
-        Owner = owner;
+        this.owner = owner;
     }
 
     //define getter-setter
@@ -43,11 +43,11 @@ public class Owner {
     }
 
     public String getOwner() {
-        return Owner;
+        return owner;
     }
 
     public void setOwner(String owner) {
-        Owner = owner;
+        this.owner = owner;
     }
 
     public List<Contact> getContacts() {
@@ -64,7 +64,7 @@ public class Owner {
     public String toString() {
         return "Owner{" +
                 "ownerId=" + ownerId +
-                ", Owner='" + Owner + '\'' +
+                ", Owner='" + owner + '\'' +
                 ", contacts=" + contacts +
                 '}';
     }

@@ -1,6 +1,9 @@
 package hu.robi.cardservice.sessionservice;
 
 import hu.robi.cardservice.dao.CardRepository;
+import hu.robi.cardservice.dao.CardTypeRepository;
+import hu.robi.cardservice.dao.ContactRepository;
+import hu.robi.cardservice.dao.OwnerRepository;
 import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.RestCard;
 import org.springframework.http.HttpStatus;
@@ -14,9 +17,15 @@ import java.util.Optional;
 public class CardSessionServiceImpl implements CardSessionService {
 
     private final CardRepository cardRepository;
+    private final CardTypeRepository cardTypeRepository;
+    private final ContactRepository contactRepository;
+    private final OwnerRepository ownerRepository;
 
-    public CardSessionServiceImpl(CardRepository cardRepository) {
+    public CardSessionServiceImpl(CardRepository cardRepository, CardTypeRepository cardTypeRepository, ContactRepository contactRepository, OwnerRepository ownerRepository) {
         this.cardRepository = cardRepository;
+        this.cardTypeRepository = cardTypeRepository;
+        this.contactRepository = contactRepository;
+        this.ownerRepository = ownerRepository;
     }
 
     @Override
@@ -40,7 +49,7 @@ public class CardSessionServiceImpl implements CardSessionService {
 
     @Override
     public void createCard(RestCard theRestCard) {
-        Card theCard = theRestCard.convertRestCardToCard();
+        Card theCard = theRestCard.convertRestCardToCard(cardTypeRepository, ownerRepository, contactRepository);
         cardRepository.save(theCard);
     }
 }
