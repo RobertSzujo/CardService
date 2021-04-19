@@ -4,6 +4,7 @@ import hu.robi.cardservice.dao.CardRepository;
 import hu.robi.cardservice.dao.CardTypeRepository;
 import hu.robi.cardservice.dao.ContactRepository;
 import hu.robi.cardservice.dao.OwnerRepository;
+import hu.robi.cardservice.encryption.EncryptService;
 import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.RestCard;
 import org.springframework.http.HttpStatus;
@@ -34,8 +35,8 @@ public class CardSessionServiceImpl implements CardSessionService {
     }
 
     @Override
-    public RestCard requestCard(String theCardNumber) {
-        Optional<Card> result = cardRepository.findById(theCardNumber);
+    public RestCard requestCard(String inputCardNumber) {
+        Optional<Card> result = cardRepository.findById(inputCardNumber);
         RestCard theCard = null;
         if (result.isPresent()) {
             theCard = new RestCard();
@@ -48,8 +49,46 @@ public class CardSessionServiceImpl implements CardSessionService {
     }
 
     @Override
-    public void createCard(RestCard theRestCard) {
-        Card theCard = theRestCard.convertRestCardToCard(cardTypeRepository, ownerRepository, contactRepository);
+    public void createCard(RestCard inputRestCard) {
+        Card theCard = inputRestCard.convertRestCardToCard(cardTypeRepository, ownerRepository, contactRepository);
         cardRepository.save(theCard);
+    }
+
+    //TODO: refactor this code
+    @Override
+    public boolean validateCard(RestCard inputRestCard) {
+        //get data from input RestCard
+        String cardNumber = inputRestCard.getCardNumber();
+        String cardType = inputRestCard.getCardType();
+        String validThru = inputRestCard.getValidThru();
+        String cvv = inputRestCard.getCvv();
+
+        //get card by card number (if exists)
+        Optional<Card> result = cardRepository.findById(cardNumber);
+        if (!result.isPresent()) {
+            return false;
+        }
+        Card theCard = result.get();
+
+        //check cardType, validThru and isDisabled
+        if (!cardType.equals(theCard.getCardType().getCardType()) ||
+                !validThru.equals(theCard.getValidThru()) ||
+                theCard.getIsDisabledRaw() == 'Y') {
+            return false;
+        }
+
+        //generate hash and check if it matches with the one in db
+        String inputDataToHash = cardNumber + validThru + cvv;
+
+        EncryptService encryptService = new EncryptService();
+        encryptService.generateSaltFromBase64(theCard.getCardHash().substring(0,24));
+        String hashedInputData= encryptService.EncryptString(inputDataToHash);
+
+        if (!hashedInputData.equals(theCard.getCardHash())) {
+            return false;
+        }
+
+        //return true if everything is OK
+        return true;
     }
 }

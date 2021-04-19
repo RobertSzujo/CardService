@@ -2,6 +2,7 @@ package hu.robi.cardservice.entity;
 
 //This entity converts data between the database-linked Card entity and a REST-compatible form vice-versa.
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import hu.robi.cardservice.dao.CardTypeRepository;
 import hu.robi.cardservice.dao.ContactRepository;
 import hu.robi.cardservice.dao.OwnerRepository;
@@ -21,9 +22,10 @@ public class RestCard {
 
     private String validThru;
 
-    private String cvv; //can only set
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String cvv; //can only write
 
-    private boolean disabled; //can only get
+    private boolean disabled;
 
     private String owner;
 
@@ -63,6 +65,10 @@ public class RestCard {
 
     public void setCVV(String cvv) {
         this.cvv = cvv;
+    }
+
+    public String getCvv() {
+        return cvv;
     }
 
     public boolean getDisabled() {

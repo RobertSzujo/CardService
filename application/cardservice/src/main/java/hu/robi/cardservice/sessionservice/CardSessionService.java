@@ -9,7 +9,9 @@ public interface CardSessionService {
 
     public List<Card> requestAllCards();
 
-    public RestCard requestCard(String theCardNumber);
+    public RestCard requestCard(String inputCardNumber);
 
-    public void createCard(RestCard theRestCard);
+    public void createCard(RestCard inputRestCard);
+
+    public boolean validateCard(RestCard inputRestCard);
 }
