@@ -1,10 +1,18 @@
 package hu.robi.cardservice.service;
 
+import hu.robi.cardservice.dao.CardRepository;
+import hu.robi.cardservice.dao.CardTypeRepository;
+import hu.robi.cardservice.entity.Card;
+import hu.robi.cardservice.entity.CardType;
 import hu.robi.cardservice.entity.RestCard;
+
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import hu.robi.cardservice.entity.RestContact;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 public class RestCardVerifyService {
 
@@ -20,12 +28,22 @@ public class RestCardVerifyService {
 
     //define methods
 
-    public String verifyCard()
-    {
+    public String verifyCard(CardTypeRepository cardTypeRepository, CardRepository cardRepository) {
+
+        String cardTypeResult = verifyCardType(cardTypeRepository);
+        if (!cardTypeResult.equals("OK")) {
+            return cardTypeResult;
+        }
+
         String cardNumberResult = verifyCardNumber();
         if (!cardNumberResult.equals("OK")) {
             return cardNumberResult;
-        };
+        }
+
+        String cardDoesNotExistResult = verifyCardDoesNotExist(cardRepository);
+        if (!cardDoesNotExistResult.equals("OK")) {
+            return cardDoesNotExistResult;
+        }
 
         String validThruResult = verifyValidThru();
         if (!validThruResult.equals("OK")) {
@@ -37,13 +55,27 @@ public class RestCardVerifyService {
             return cvvResult;
         }
 
-        String contactResult = verifyContact();{
-            if (!contactResult.equals("OK")) {
-                return contactResult;
-            }
+        String contactResult = verifyContact();
+        if (!contactResult.equals("OK")) {
+            return contactResult;
         }
 
     return "OK";
+    }
+
+    private String verifyCardType(CardTypeRepository cardTypeRepository) {
+        String cardType = inputRestCard.getCardType();
+
+        if (cardType == null) {
+            return "Nem került megadásra kártyatípus!";
+        }
+
+        Optional<CardType> matchingCardType = cardTypeRepository.findByCardType(cardType);
+        if (!matchingCardType.isPresent()) {
+            return "A megadott kártyatípus nem található az adatbázisban.";
+        }
+
+        return "OK";
     }
 
     private String verifyCardNumber() {
@@ -52,9 +84,6 @@ public class RestCardVerifyService {
 
         if (cardNumber == null) {
             return "Nem került megadásra kártyaszám!";
-        }
-        if (cardType == null) {
-            return "Nem került megadásra kártyatípus!";
         }
 
         Pattern cardNumberPattern = Pattern.compile("\\d{16}");
@@ -72,6 +101,16 @@ public class RestCardVerifyService {
 
         if (!LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(cardNumber)) {
             return "A kártyaszám nem érvényes.";
+        }
+
+        return "OK";
+    }
+
+    private String verifyCardDoesNotExist(CardRepository cardRepository) {
+        String cardNumber = inputRestCard.getCardNumber();
+        Optional<Card> matchingCard = cardRepository.findById(cardNumber);
+        if (matchingCard.isPresent()) {
+            return "A megadott kártyaszám alapján már létezik kártya az adatbázisban.";
         }
 
         return "OK";

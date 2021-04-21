@@ -35,22 +35,23 @@ public class CardSessionServiceImpl implements CardSessionService {
 
     @Override
     public RestCard requestCard(String inputCardNumber) {
-        Optional<Card> result = cardRepository.findById(inputCardNumber);
-        RestCard theCard = null;
-        if (result.isPresent()) {
-            theCard = new RestCard();
-            theCard.convertCardToRestCard(result.get());
+        Optional<Card> requestedCard = cardRepository.findById(inputCardNumber);
+        RestCard requestedRestCard;
+        if (requestedCard.isPresent()) {
+            ConversionService conversionService = new ConversionService();
+            requestedRestCard = conversionService.convertCardToRestCard(requestedCard.get());
         }
         else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A megadott kártyaszám nem található az adatbázisban.");
         }
-        return theCard;
+        return requestedRestCard;
     }
 
     @Override
     public void createCard(RestCard inputRestCard) {
-        Card theCard = inputRestCard.convertRestCardToCard(cardTypeRepository, ownerRepository, contactRepository);
-        cardRepository.save(theCard);
+        ConversionService conversionService = new ConversionService();
+        Card createdCard = conversionService.convertRestCardToCard(inputRestCard, cardRepository, cardTypeRepository, ownerRepository, contactRepository);
+        cardRepository.save(createdCard);
     }
 
     //TODO: refactor this code

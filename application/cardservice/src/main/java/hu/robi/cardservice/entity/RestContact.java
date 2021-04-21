@@ -35,12 +35,4 @@ public class RestContact {
     public void setContact(String contact) {
         this.contact = contact.toUpperCase();
     }
-
-    //define method
-
-    public void convertContactToRestContact(Contact theContact)
-    {
-        this.type = theContact.getContactType();
-        this.contact = theContact.getContact();
-    }
 }
