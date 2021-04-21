@@ -3,29 +3,29 @@ package hu.robi.cardservice.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="CARD")
+@Table(name = "CARD")
 public class Card {
 
     //define fields
     @Id
-    @Column(name="card_number")
+    @Column(name = "card_number")
     private String cardNumber;
 
-    @Column(name="valid_thru")
+    @Column(name = "valid_thru")
     private String validThru;
 
-    @Column(name="card_hash")
+    @Column(name = "card_hash")
     private String cardHash;
 
-    @Column(name="disabled")
+    @Column(name = "disabled")
     private char isDisabledRaw;
 
-    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name="owner_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    @ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name="card_type_id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "card_type_id")
     private CardType cardType;
 
     //define constructors

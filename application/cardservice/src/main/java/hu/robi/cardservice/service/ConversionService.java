@@ -10,7 +10,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -54,17 +53,12 @@ public class ConversionService {
     }
 
     //helper methods for Card -> RestCard conversion
-    private boolean convertDisabledToBoolean(char disabledChar)
-    {
-        boolean disabledBoolean = false;
-        if (disabledChar == 'Y') {
-            disabledBoolean = true;
-        }
+    private boolean convertDisabledToBoolean(char disabledChar) {
+        boolean disabledBoolean = disabledChar == 'Y';
         return disabledBoolean;
     }
 
-    private List<RestContact> convertContactListToRestContactList(List<Contact> contactList)
-    {
+    private List<RestContact> convertContactListToRestContactList(List<Contact> contactList) {
         List<RestContact> restContactList = new ArrayList<>();
 
         for (Contact contact : contactList) {
@@ -94,28 +88,25 @@ public class ConversionService {
         Optional<Owner> matchingOwner = ownerRepository.findByOwner(ownerName);
         if (matchingOwner.isPresent()) {
             return (matchingOwner.get());
-        }
-        else {
+        } else {
             cardOwner.setOwner(ownerName);
         }
         return cardOwner;
     }
 
-    private List<Contact> convertRestContactListToContactList(ContactRepository contactRepository, List<RestContact> inputRestContactList, Owner cardOwner)
-    {
+    private List<Contact> convertRestContactListToContactList(ContactRepository contactRepository, List<RestContact> inputRestContactList, Owner cardOwner) {
 
         List<Contact> contactList = cardOwner.getContacts();
 
         if (contactList == null) {
             if (inputRestContactList.size() == 0) {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "A kártyatulajdonosnak nincs elérhetősége, legalább egyet meg kell adni!");
-            }
-            else {
+            } else {
                 contactList = new ArrayList<>();
             }
         }
 
-        for (RestContact inputRestContact: inputRestContactList) {
+        for (RestContact inputRestContact : inputRestContactList) {
             List<Contact> finalContactList = contactList;
             int matchingContactIndex = IntStream.range(0, contactList.size())
                     .filter(i -> finalContactList.get(i).getContact().equals(inputRestContact.getContact()))

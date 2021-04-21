@@ -49,8 +49,7 @@ public class EncryptService {
         return encryptedString;
     }
 
-    public void generateSaltFromBase64 (String encodedSalt)
-    {
+    public void generateSaltFromBase64(String encodedSalt) {
         salt = Base64.getDecoder().decode(encodedSalt);
     }
 

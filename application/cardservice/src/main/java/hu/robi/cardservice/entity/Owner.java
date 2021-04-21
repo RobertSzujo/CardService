@@ -4,21 +4,21 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="OWNER")
+@Table(name = "OWNER")
 public class Owner {
 
     //define fields
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="OWNER_SEQGEN")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "OWNER_SEQGEN")
     @SequenceGenerator(name = "OWNER_SEQGEN", sequenceName = "OWNER_SEQ", allocationSize = 1)
-    @Column(name="owner_id")
+    @Column(name = "owner_id")
     private int ownerId;
 
-    @Column(name="owner")
+    @Column(name = "owner")
     private String owner;
 
-    @OneToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name="owner_id")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "owner_id")
     private List<Contact> contacts;
 
     //define constructors

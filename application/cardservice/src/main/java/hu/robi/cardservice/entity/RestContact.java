@@ -2,8 +2,6 @@ package hu.robi.cardservice.entity;
 
 //This entity converts data between the database-linked Contact entity and a REST-compatible form vice-versa.
 
-import java.util.List;
-
 public class RestContact {
 
     //define fields

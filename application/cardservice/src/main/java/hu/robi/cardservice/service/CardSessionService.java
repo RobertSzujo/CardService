@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface CardSessionService {
 
-    public List<Card> requestAllCards();
+    List<Card> requestAllCards();
 
-    public RestCard requestCard(String inputCardNumber);
+    RestCard requestCard(String inputCardNumber);
 
-    public void createCard(RestCard inputRestCard);
+    void createCard(RestCard inputRestCard);
 
-    public String validateCard(RestCard inputRestCard);
+    String validateCard(RestCard inputRestCard);
 
-    public void disableCard(String cardNumber);
+    void disableCard(String cardNumber);
 }

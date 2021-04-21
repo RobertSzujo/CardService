@@ -63,8 +63,8 @@ public class CardValidationService {
     private String hashInputCard(String cardNumber, String validThru, String cvv, Card matchedCard) {
         String inputDataToHash = cardNumber + validThru + cvv;
         EncryptService encryptService = new EncryptService();
-        encryptService.generateSaltFromBase64(matchedCard.getCardHash().substring(0,24));
-        String inputCardHash= encryptService.EncryptString(inputDataToHash);
+        encryptService.generateSaltFromBase64(matchedCard.getCardHash().substring(0, 24));
+        String inputCardHash = encryptService.EncryptString(inputDataToHash);
         return inputCardHash;
     }
 

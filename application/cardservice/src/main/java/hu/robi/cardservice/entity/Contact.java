@@ -3,23 +3,23 @@ package hu.robi.cardservice.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="CONTACT")
+@Table(name = "CONTACT")
 public class Contact {
 
     //define fields
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CONTACT_SEQGEN")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTACT_SEQGEN")
     @SequenceGenerator(name = "CONTACT_SEQGEN", sequenceName = "CONTACT_SEQ", allocationSize = 1)
-    @Column(name="contact_id")
+    @Column(name = "contact_id")
     private int contactId;
 
-    @Column(name="owner_id")
+    @Column(name = "owner_id")
     private int ownerId;
 
-    @Column(name="contact_type")
+    @Column(name = "contact_type")
     private String contactType;
 
-    @Column(name="contact")
+    @Column(name = "contact")
     private String contact;
 
 

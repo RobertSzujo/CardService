@@ -40,8 +40,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         if (requestedCard.isPresent()) {
             ConversionService conversionService = new ConversionService();
             requestedRestCard = conversionService.convertCardToRestCard(requestedCard.get());
-        }
-        else {
+        } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A megadott kártyaszám nem található az adatbázisban.");
         }
         return requestedRestCard;
@@ -65,7 +64,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         //get card by card number (if exists)
         Optional<Card> result = cardRepository.findById(cardNumber);
         if (!result.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"A megadott kártyaszám nem található az adatbázisban.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A megadott kártyaszám nem található az adatbázisban.");
         }
         Card theCard = result.get();
 

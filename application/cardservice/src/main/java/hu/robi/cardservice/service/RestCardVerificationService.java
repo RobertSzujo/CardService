@@ -5,18 +5,17 @@ import hu.robi.cardservice.dao.CardTypeRepository;
 import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.CardType;
 import hu.robi.cardservice.entity.RestCard;
+import hu.robi.cardservice.entity.RestContact;
+import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 
 import java.util.Optional;
 import java.util.regex.Pattern;
-
-import hu.robi.cardservice.entity.RestContact;
-import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 
 public class RestCardVerificationService {
 
     //define fields
 
-    private RestCard inputRestCard;
+    private final RestCard inputRestCard;
 
     //define constructor
 
@@ -150,7 +149,7 @@ public class RestCardVerificationService {
             return "Az érvényességi idő nem érvényes, MM/YY formátumnak kell lennie. Például: 04/23 (2023. április)";
         }
 
-        int validThruMonth = Integer.parseInt(validThru.substring(0,2));
+        int validThruMonth = Integer.parseInt(validThru.substring(0, 2));
         if (validThruMonth > 12 || validThruMonth < 1) {
             return "Az érvényességi idő hónapja nem érvényes, 01 és 12 közötti szám lehet. Például: 04/23 (2023. április)";
         }

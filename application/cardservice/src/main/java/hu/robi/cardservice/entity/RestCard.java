@@ -98,8 +98,7 @@ public class RestCard {
 
     //define methods
 
-    public void verifyRestCard(CardTypeRepository cardTypeRepository, CardRepository cardRepository)
-    {
+    public void verifyRestCard(CardTypeRepository cardTypeRepository, CardRepository cardRepository) {
         RestCardVerificationService restCardVerificationService = new RestCardVerificationService(this);
         String cardVerificationResult = restCardVerificationService.verifyCardForCreation(cardTypeRepository, cardRepository);
         if (!cardVerificationResult.equals("OK")) {
@@ -107,10 +106,9 @@ public class RestCard {
         }
     }
 
-    public String createHash ()
-    {
+    public String createHash() {
         EncryptService encryptService = new EncryptService();
-        String result= encryptService.EncryptString(cardNumber + validThru + cvv);
+        String result = encryptService.EncryptString(cardNumber + validThru + cvv);
 
         return result;
     }
