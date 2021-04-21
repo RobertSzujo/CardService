@@ -5,16 +5,12 @@ package hu.robi.cardservice.entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import hu.robi.cardservice.dao.CardRepository;
 import hu.robi.cardservice.dao.CardTypeRepository;
-import hu.robi.cardservice.dao.ContactRepository;
-import hu.robi.cardservice.dao.OwnerRepository;
 import hu.robi.cardservice.service.EncryptService;
-import hu.robi.cardservice.service.RestCardVerifyService;
+import hu.robi.cardservice.service.RestCardVerificationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 public class RestCard {
@@ -49,7 +45,7 @@ public class RestCard {
     }
 
     public void setCardType(String cardType) {
-        this.cardType = cardType;
+        this.cardType = cardType.toUpperCase();
     }
 
     public String getCardNumber() {
@@ -104,11 +100,19 @@ public class RestCard {
 
     public void verifyRestCard(CardTypeRepository cardTypeRepository, CardRepository cardRepository)
     {
-        RestCardVerifyService restCardVerifyService = new RestCardVerifyService(this);
-        String verificationResult = restCardVerifyService.verifyCard(cardTypeRepository, cardRepository);
-        if (!verificationResult.equals("OK")) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, verificationResult);
+        RestCardVerificationService restCardVerificationService = new RestCardVerificationService(this);
+        String cardVerificationResult = restCardVerificationService.verifyCardForCreation(cardTypeRepository, cardRepository);
+        if (!cardVerificationResult.equals("OK")) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, cardVerificationResult);
         }
+    }
+
+    public String createHash ()
+    {
+        EncryptService encryptService = new EncryptService();
+        String result= encryptService.EncryptString(cardNumber + validThru + cvv);
+
+        return result;
     }
 
 }

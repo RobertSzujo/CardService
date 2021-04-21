@@ -11,10 +11,8 @@ import java.util.regex.Pattern;
 
 import hu.robi.cardservice.entity.RestContact;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
-public class RestCardVerifyService {
+public class RestCardVerificationService {
 
     //define fields
 
@@ -22,14 +20,48 @@ public class RestCardVerifyService {
 
     //define constructor
 
-    public RestCardVerifyService(RestCard inputRestCard) {
+    public RestCardVerificationService(RestCard inputRestCard) {
         this.inputRestCard = inputRestCard;
     }
 
     //define methods
 
-    public String verifyCard(CardTypeRepository cardTypeRepository, CardRepository cardRepository) {
+    public String verifyCardForValidation(CardTypeRepository cardTypeRepository, CardRepository cardRepository) {
 
+        String cardDataResult = verifyCardData(cardTypeRepository);
+        if (!cardDataResult.equals("OK")) {
+            return cardDataResult;
+        }
+
+        String cardDoesNotExistResult = verifyCardDoesNotExist(cardRepository);
+        if (cardDoesNotExistResult.equals("OK")) {
+            return "A megadott kártyaszám nem található az adatbázisban.";
+        }
+
+        return "OK";
+    }
+
+    public String verifyCardForCreation(CardTypeRepository cardTypeRepository, CardRepository cardRepository) {
+
+        String cardDataResult = verifyCardData(cardTypeRepository);
+        if (!cardDataResult.equals("OK")) {
+            return cardDataResult;
+        }
+
+        String cardDoesNotExistResult = verifyCardDoesNotExist(cardRepository);
+        if (!cardDoesNotExistResult.equals("OK")) {
+            return cardDoesNotExistResult;
+        }
+
+        String contactsResult = verifyContacts();
+        if (!contactsResult.equals("OK")) {
+            return contactsResult;
+        }
+
+        return "OK";
+    }
+
+    private String verifyCardData(CardTypeRepository cardTypeRepository) {
         String cardTypeResult = verifyCardType(cardTypeRepository);
         if (!cardTypeResult.equals("OK")) {
             return cardTypeResult;
@@ -38,11 +70,6 @@ public class RestCardVerifyService {
         String cardNumberResult = verifyCardNumber();
         if (!cardNumberResult.equals("OK")) {
             return cardNumberResult;
-        }
-
-        String cardDoesNotExistResult = verifyCardDoesNotExist(cardRepository);
-        if (!cardDoesNotExistResult.equals("OK")) {
-            return cardDoesNotExistResult;
         }
 
         String validThruResult = verifyValidThru();
@@ -55,12 +82,7 @@ public class RestCardVerifyService {
             return cvvResult;
         }
 
-        String contactResult = verifyContact();
-        if (!contactResult.equals("OK")) {
-            return contactResult;
-        }
-
-    return "OK";
+        return "OK";
     }
 
     private String verifyCardType(CardTypeRepository cardTypeRepository) {
@@ -91,11 +113,11 @@ public class RestCardVerifyService {
             return "A kártyaszámnak 16 számjegyből kell állnia, más karakter (pl. kötőjel, szóköz) nem lehet benne. Például: 5339019326001410";
         }
 
-        if (cardType.contains("Master") && !cardNumber.startsWith("5")) {
+        if (cardType.contains("MASTER") && !cardNumber.startsWith("5")) {
             return "A kártyszám nem érvényes, MasterCard esetén a kártyaszám csak 5-össel kezdődhet!";
         }
 
-        if (cardType.contains("Visa") && !cardNumber.startsWith("4")) {
+        if (cardType.contains("VISA") && !cardNumber.startsWith("4")) {
             return "A kártyaszám nem érvényes, Visa esetén a kártyaszám csak 4-essel kezdődhet!";
         }
 
@@ -151,7 +173,7 @@ public class RestCardVerifyService {
         return "OK";
     }
 
-    private String verifyContact() {
+    private String verifyContacts() {
         Pattern emailPattern = Pattern.compile("\\w+\\@{1}\\w+\\.{1}\\w+");
         Pattern smsPattern = Pattern.compile("\\+{1}\\d{7,15}");
 

@@ -46,14 +46,14 @@ CREATE SEQUENCE CARD_TYPE_SEQ
   START WITH 1
   INCREMENT BY 1;
   
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Mastercard George bankkártya');
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Visa George bankkártya');
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Mastercard Standard bankkártya');
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Mastercard Gold bankkártya');
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Mastercard World Gold bankkártya');
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Mastercard Standard Devizakártya');
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Mastercard Diák bankkártya');
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Mastercard Start bankkártya');
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Visa Classic bankkártya');
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Visa virtuális bankkártya');
-INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'Visa Electron bankkártya');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'MASTERCARD GEORGE BANKKÁRTYA');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'VISA GEORGE BANKKÁRTYA');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'MASTERCARD STANDARD BANKKÁRTYA');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'MASTERCARD GOLD BANKKÁRTYA');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'MASTERCARD WORLD GOLD BANKKÁRTYA');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'MASTERCARD STANDARD DEVIZAKÁRTYA');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'MASTERCARD DIÁK BANKKÁRTYA');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'MASTERCARD START BANKKÁRTYA');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'VISA CLASSIC BANKKÁRTYA');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'VISA VIRTUÁLIS BANKKÁRTYA');
+INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'VISA ELECTRON BANKKÁRTYA');

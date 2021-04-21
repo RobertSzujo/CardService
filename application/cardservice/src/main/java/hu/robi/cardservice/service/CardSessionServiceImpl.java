@@ -53,43 +53,11 @@ public class CardSessionServiceImpl implements CardSessionService {
         Card createdCard = conversionService.convertRestCardToCard(inputRestCard, cardRepository, cardTypeRepository, ownerRepository, contactRepository);
         cardRepository.save(createdCard);
     }
-
-    //TODO: refactor this code
+    
     @Override
-    public boolean validateCard(RestCard inputRestCard) {
-        //get data from input RestCard
-        String cardNumber = inputRestCard.getCardNumber();
-        String cardType = inputRestCard.getCardType();
-        String validThru = inputRestCard.getValidThru();
-        String cvv = inputRestCard.getCvv();
-
-        //get card by card number (if exists)
-        Optional<Card> result = cardRepository.findById(cardNumber);
-        if (!result.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A megadott kártyaszám nem található az adatbázisban.");
-        }
-        Card theCard = result.get();
-
-        //check cardType, validThru and isDisabled
-        if (!cardType.equals(theCard.getCardType().getCardType()) ||
-                !validThru.equals(theCard.getValidThru()) ||
-                theCard.getIsDisabledRaw() == 'Y') {
-            return false;
-        }
-
-        //generate hash and check if it matches with the one in db
-        String inputDataToHash = cardNumber + validThru + cvv;
-
-        EncryptService encryptService = new EncryptService();
-        encryptService.generateSaltFromBase64(theCard.getCardHash().substring(0,24));
-        String hashedInputData= encryptService.EncryptString(inputDataToHash);
-
-        if (!hashedInputData.equals(theCard.getCardHash())) {
-            return false;
-        }
-
-        //return true if everything is OK
-        return true;
+    public String validateCard(RestCard inputRestCard) {
+        CardValidationService cardValidationService = new CardValidationService(inputRestCard);
+        return (cardValidationService.validateCard(cardTypeRepository, cardRepository));
     }
 
     @Override
@@ -97,7 +65,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         //get card by card number (if exists)
         Optional<Card> result = cardRepository.findById(cardNumber);
         if (!result.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"A megadott kártyaszám nem található az adatbázisban.");
         }
         Card theCard = result.get();
 

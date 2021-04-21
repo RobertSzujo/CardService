@@ -48,7 +48,7 @@ public class ConversionService {
         card.setCardType(createCardType(cardTypeRepository, inputRestCard.getCardType()));
         card.setOwner(createOwner(ownerRepository, inputRestCard.getOwner()));
         card.getOwner().setContacts(convertRestContactListToContactList(contactRepository, inputRestCard.getContactInfo(), card.getOwner().getOwnerId(), isExistingOwner));
-        card.setCardHash(createHash(inputRestCard.getCardNumber(), inputRestCard.getValidThru(), inputRestCard.getCvv()));
+        card.setCardHash(inputRestCard.createHash());
 
         return card;
     }
@@ -83,14 +83,6 @@ public class ConversionService {
     }
 
     //helper methods for RestCard -> Card conversion
-    private String createHash (String cardNumber, String validThru, String cvv)
-    {
-        EncryptService encryptService = new EncryptService();
-        String result= encryptService.EncryptString(cardNumber + validThru + cvv);
-
-        return result;
-    }
-
     private CardType createCardType(CardTypeRepository cardTypeRepository, String cardTypeName) {
         Optional<CardType> matchingCardType = cardTypeRepository.findByCardType(cardTypeName);
         return (matchingCardType.get());

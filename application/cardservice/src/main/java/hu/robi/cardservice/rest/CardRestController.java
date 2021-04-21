@@ -42,14 +42,8 @@ public class CardRestController {
     //add mapping for POST /ecards/validate - validate card
     @PostMapping("/validate")
     public String validateCard(@RequestBody RestCard theRestCard) {
-        boolean result = cardSessionService.validateCard(theRestCard);
-
-        if (result == true) {
-            return "VALID";
-        }
-        else {
-            return "INVALID";
-        }
+        String result = cardSessionService.validateCard(theRestCard);
+        return result;
     }
 
     //add mapping for PUT /ecards/{cardNumber}
