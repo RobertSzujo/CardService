@@ -53,6 +53,9 @@ public class RestCardVerifyService {
         if (cardNumber == null) {
             return "Nem került megadásra kártyaszám!";
         }
+        if (cardType == null) {
+            return "Nem került megadásra kártyatípus!";
+        }
 
         Pattern cardNumberPattern = Pattern.compile("\\d{16}");
         if (!cardNumberPattern.matcher(cardNumber).matches()) {

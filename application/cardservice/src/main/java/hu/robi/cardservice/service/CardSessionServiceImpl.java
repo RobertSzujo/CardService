@@ -80,7 +80,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         String inputDataToHash = cardNumber + validThru + cvv;
 
         EncryptService encryptService = new EncryptService();
-        encryptService.generateSaltFromBase64(theCard.getCardHash().substring(0,25));
+        encryptService.generateSaltFromBase64(theCard.getCardHash().substring(0,24));
         String hashedInputData= encryptService.EncryptString(inputDataToHash);
 
         if (!hashedInputData.equals(theCard.getCardHash())) {
