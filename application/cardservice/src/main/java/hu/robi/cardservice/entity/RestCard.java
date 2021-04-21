@@ -136,13 +136,13 @@ public class RestCard {
 
     private void createCardType(CardTypeRepository cardTypeRepository, Card theCard) {
         CardType theCardType = new CardType();
-        //use a matching card type if found, or create a new if it does not exist
+        //match the card type with the one in the database, or throw error if not found
         Optional<CardType> matchingCardType = cardTypeRepository.findByCardType(this.cardType);
         if (matchingCardType.isPresent()) {
             theCardType = (matchingCardType.get());
         }
         else {
-            theCardType.setCardType(this.cardType);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "A megadott kártyatípus nem szerepel az adatbázisban!");
         }
         theCard.setCardType(theCardType);
     }
@@ -173,6 +173,7 @@ public class RestCard {
 
             if (matchingContact.isPresent()) {
                 currentContact = matchingContact.get();
+                currentContact.setOwnerId(ownerId);
             }
             else {
                 currentContact.setOwnerId(ownerId);
@@ -181,6 +182,11 @@ public class RestCard {
             }
 
             result.add(currentContact);
+        }
+
+        //if the owner does not have any contacts, throw error
+        if (result.size() == 0) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "A kártyatulajdonosnak nincs elérhetősége!");
         }
 
         return result;

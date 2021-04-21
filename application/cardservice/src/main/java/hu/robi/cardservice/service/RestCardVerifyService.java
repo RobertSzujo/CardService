@@ -50,6 +50,10 @@ public class RestCardVerifyService {
         String cardNumber = inputRestCard.getCardNumber();
         String cardType = inputRestCard.getCardType();
 
+        if (cardNumber == null) {
+            return "Nem került megadásra kártyaszám!";
+        }
+
         Pattern cardNumberPattern = Pattern.compile("\\d{16}");
         if (!cardNumberPattern.matcher(cardNumber).matches()) {
             return "A kártyaszámnak 16 számjegyből kell állnia, más karakter (pl. kötőjel, szóköz) nem lehet benne. Például: 5339019326001410";
@@ -73,6 +77,10 @@ public class RestCardVerifyService {
     private String verifyValidThru() {
         String validThru = inputRestCard.getValidThru();
 
+        if (validThru == null) {
+            return "Nem került megadásra érvényességi dátum!";
+        }
+
         Pattern validThruPattern = Pattern.compile("\\d{2}\\/{1}\\d{2}");
         if (!validThruPattern.matcher(validThru).matches()) {
             return "Az érvényességi idő nem érvényes, MM/YY formátumnak kell lennie. Például: 04/23 (2023. április)";
@@ -88,6 +96,10 @@ public class RestCardVerifyService {
 
     private String verifyCvv() {
         String cvv = inputRestCard.getCvv();
+
+        if (cvv == null) {
+            return "Nem került megadásra CVV kód!";
+        }
 
         Pattern cvvPattern = Pattern.compile("\\d{3}");
         if (!cvvPattern.matcher(cvv).matches()) {
