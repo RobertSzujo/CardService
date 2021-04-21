@@ -1,4 +1,4 @@
-package hu.robi.cardservice.encryption;
+package hu.robi.cardservice.service;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

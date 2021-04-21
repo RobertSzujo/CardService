@@ -1,10 +1,9 @@
-package hu.robi.cardservice.sessionservice;
+package hu.robi.cardservice.service;
 
 import hu.robi.cardservice.dao.CardRepository;
 import hu.robi.cardservice.dao.CardTypeRepository;
 import hu.robi.cardservice.dao.ContactRepository;
 import hu.robi.cardservice.dao.OwnerRepository;
-import hu.robi.cardservice.encryption.EncryptService;
 import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.RestCard;
 import org.springframework.http.HttpStatus;
@@ -81,7 +80,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         String inputDataToHash = cardNumber + validThru + cvv;
 
         EncryptService encryptService = new EncryptService();
-        encryptService.generateSaltFromBase64(theCard.getCardHash().substring(0,24));
+        encryptService.generateSaltFromBase64(theCard.getCardHash().substring(0,25));
         String hashedInputData= encryptService.EncryptString(inputDataToHash);
 
         if (!hashedInputData.equals(theCard.getCardHash())) {

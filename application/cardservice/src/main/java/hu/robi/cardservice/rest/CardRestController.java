@@ -2,7 +2,7 @@ package hu.robi.cardservice.rest;
 
 import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.RestCard;
-import hu.robi.cardservice.sessionservice.CardSessionService;
+import hu.robi.cardservice.service.CardSessionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

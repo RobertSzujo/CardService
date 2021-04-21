@@ -6,7 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import hu.robi.cardservice.dao.CardTypeRepository;
 import hu.robi.cardservice.dao.ContactRepository;
 import hu.robi.cardservice.dao.OwnerRepository;
-import hu.robi.cardservice.encryption.EncryptService;
+import hu.robi.cardservice.service.EncryptService;
+import hu.robi.cardservice.service.RestCardVerifyService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +83,7 @@ public class RestCard {
     }
 
     public void setOwner(String owner) {
-        this.owner = owner;
+        this.owner = owner.toUpperCase();
     }
 
     public List<RestContact> getContactInfo() {
@@ -102,6 +105,8 @@ public class RestCard {
 
     //TODO: refactor this code
     public Card convertRestCardToCard(CardTypeRepository cardTypeRepository, OwnerRepository ownerRepository, ContactRepository contactRepository) {
+
+        verifyRestCard();
 
         Card theCard = new Card();
 
@@ -196,6 +201,15 @@ public class RestCard {
         String result= encryptService.EncryptString(cardNumber+validThru+cvv);
 
         return result;
+    }
+
+    private void verifyRestCard()
+    {
+        RestCardVerifyService restCardVerifyService = new RestCardVerifyService(this);
+        String result = restCardVerifyService.verifyCard();
+        if (!result.equals("OK")) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, result);
+        }
     }
 
 }

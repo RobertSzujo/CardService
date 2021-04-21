@@ -25,7 +25,7 @@ public class RestContact {
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = type.toUpperCase();
     }
 
     public String getContact() {
@@ -33,7 +33,7 @@ public class RestContact {
     }
 
     public void setContact(String contact) {
-        this.contact = contact;
+        this.contact = contact.toUpperCase();
     }
 
     //define method
