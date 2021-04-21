@@ -53,7 +53,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         Card createdCard = conversionService.convertRestCardToCard(inputRestCard, cardRepository, cardTypeRepository, ownerRepository, contactRepository);
         cardRepository.save(createdCard);
     }
-    
+
     @Override
     public String validateCard(RestCard inputRestCard) {
         CardValidationService cardValidationService = new CardValidationService(inputRestCard);
