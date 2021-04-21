@@ -65,7 +65,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         //get card by card number (if exists)
         Optional<Card> result = cardRepository.findById(cardNumber);
         if (!result.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A megadott kártyaszám nem található az adatbázisban.");
         }
         Card theCard = result.get();
 
