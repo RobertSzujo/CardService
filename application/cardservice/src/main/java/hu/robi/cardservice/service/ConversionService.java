@@ -10,11 +10,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 public class ConversionService {
-    //define fields
-    boolean isExistingOwner = false;
 
     //define constructor
 
@@ -47,7 +47,7 @@ public class ConversionService {
         card.setIsDisabledRaw('N'); //default value for new cards
         card.setCardType(createCardType(cardTypeRepository, inputRestCard.getCardType()));
         card.setOwner(createOwner(ownerRepository, inputRestCard.getOwner()));
-        card.getOwner().setContacts(convertRestContactListToContactList(contactRepository, inputRestCard.getContactInfo(), card.getOwner().getOwnerId(), isExistingOwner));
+        card.getOwner().setContacts(convertRestContactListToContactList(contactRepository, inputRestCard.getContactInfo(), card.getOwner()));
         card.setCardHash(inputRestCard.createHash());
 
         return card;
@@ -93,7 +93,6 @@ public class ConversionService {
 
         Optional<Owner> matchingOwner = ownerRepository.findByOwner(ownerName);
         if (matchingOwner.isPresent()) {
-            isExistingOwner = true;
             return (matchingOwner.get());
         }
         else {
@@ -102,31 +101,36 @@ public class ConversionService {
         return cardOwner;
     }
 
-    private List<Contact> convertRestContactListToContactList(ContactRepository contactRepository, List<RestContact> inputRestContactList, int ownerId, boolean isExistingOwner)
+    private List<Contact> convertRestContactListToContactList(ContactRepository contactRepository, List<RestContact> inputRestContactList, Owner cardOwner)
     {
 
-        if (inputRestContactList.size() == 0 && !isExistingOwner) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Új kártyatulajdonos felvétele esetén kötelező legalább egy elérhetőséget megadni.");
-        }
+        List<Contact> contactList = cardOwner.getContacts();
 
-        List<Contact> result = new ArrayList<>();
-
-        for (RestContact currentRestContact : inputRestContactList)
-        {
-            Contact currentContact = new Contact();
-            //use a matching contact if found, or create a new if it does not exist
-            Optional<Contact> matchingContact = contactRepository.findByContact(currentRestContact.getContact());
-
-            if (!matchingContact.isPresent()) {
-                currentContact.setOwnerId(ownerId);
-                currentContact.setContactType(currentRestContact.getType());
-                currentContact.setContact(currentRestContact.getContact());
-                result.add(currentContact);
+        if (contactList == null) {
+            if (inputRestContactList.size() == 0) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "A kártyatulajdonosnak nincs elérhetősége, legalább egyet meg kell adni!");
             }
-
+            else {
+                contactList = new ArrayList<>();
+            }
         }
 
-        return result;
+        for (RestContact inputRestContact: inputRestContactList) {
+            List<Contact> finalContactList = contactList;
+            int matchingContactIndex = IntStream.range(0, contactList.size())
+                    .filter(i -> finalContactList.get(i).getContact().equals(inputRestContact.getContact()))
+                    .findFirst().orElse(-1);
+
+            if (matchingContactIndex == -1) {
+                Contact newContact = new Contact();
+                newContact.setOwnerId(cardOwner.getOwnerId());
+                newContact.setContactType(inputRestContact.getType());
+                newContact.setContact(inputRestContact.getContact());
+                contactList.add(newContact);
+            }
+        }
+
+        return contactList;
     }
 
 

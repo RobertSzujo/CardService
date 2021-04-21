@@ -1,10 +1,2 @@
-- A kártya hash számolásánál első lépésként ellenőrizni kellene az inputot (össze kellene kötni a RestCardVerifyService-el), így hiányzó/nem megfelelő értékek esetén normális hibát kapunk
-
-- Ha új kártya létrehozásánál egy meglévő tulajdonost, és neki egy meglévő elérhetőségét adom meg, a program elszáll azzal, hogy nem tud a CARD.OWNER.CONTACT.OWNER_ID értékre NULL-t állítani
-
-- Ha új kártya létrehozásnál egy meglévő tulajdonost adok meg, de nem adok neki elérhetőséget, a program hibát ír ki. Ezt be kellene állítani úgy, hogy csak akkor adjon hibát a program, ha az adatbázisban nincs a meglévő tulajdonosnak meglévő elérhetősége, ha egyébként van, akkor azt automatikusan használhatná a program
-
-- A RestCardVerifyService-nek kellene ellenőriznie azt is, hogy létezik-e a megadott kártyatípus az adatbázisban (ehhez kell neki a CardTypeRepository), illetve, hogy a megadott RestContact létezik-e (és ha igen, érdemes még ott hozzápárosítani a megfelelő kontakthoz) 
-VAGY: létrehozni egy külön osztályt, ami a RestCard-Card összepárosításokat végzi a meglévő/nem létező értékekhez, és a RestCard-ot csak az adatok tárolására meghagyni (ez talán jobb ötlet)
-
-- Érdemes szétszedni a RestCardVerifyService-t, hogy az egyes ellenőrzések külön is elvégezhetőek legyenek (vagy létrehozni egy külön ellenőrző metódust benne a card hash számoláshoz, mivel ott kevesebb értéket kell megadni a létrehozáshoz képest)
+Egyelőre nincs :)
+Azonban további tesztelésekre még szükség van.
