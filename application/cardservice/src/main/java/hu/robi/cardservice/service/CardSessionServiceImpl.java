@@ -6,14 +6,11 @@ import hu.robi.cardservice.dao.ContactRepository;
 import hu.robi.cardservice.dao.OwnerRepository;
 import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.RestCard;
-import hu.robi.cardservice.rest.CardRestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,7 +48,9 @@ public class CardSessionServiceImpl implements CardSessionService {
     public void createCard(RestCard inputRestCard) {
         ConversionService conversionService = new ConversionService();
         Card createdCard = conversionService.convertRestCardToCard(inputRestCard, cardRepository, cardTypeRepository, ownerRepository, contactRepository);
+
         cardRepository.save(createdCard);
+        logger.debug("Kártya sikeresen mentve az adatbázisba: " + createdCard.getCardNumber());
     }
 
     @Override
@@ -69,7 +68,9 @@ public class CardSessionServiceImpl implements CardSessionService {
         }
         Card theCard = result.get();
         theCard.setIsDisabledRaw('Y');
+
         cardRepository.save(theCard);
+        logger.debug("Kártya sikeresen frissítve az adatbázisban: " + theCard.getCardNumber());
 
     }
 }

@@ -5,6 +5,8 @@ import hu.robi.cardservice.dao.CardTypeRepository;
 import hu.robi.cardservice.dao.ContactRepository;
 import hu.robi.cardservice.dao.OwnerRepository;
 import hu.robi.cardservice.entity.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -15,6 +17,8 @@ import java.util.stream.IntStream;
 
 public class ConversionService {
 
+    Logger logger = LoggerFactory.getLogger(ConversionService.class);
+
     //define constructor
 
     public ConversionService() {
@@ -23,6 +27,8 @@ public class ConversionService {
     //define methods
 
     public RestCard convertCardToRestCard(Card inputCard) {
+        logger.debug("Card objektum átalakítása RestCard objektummá: " + inputCard.getCardNumber());
+
         RestCard restCard = new RestCard();
 
         restCard.setCardType(inputCard.getCardType().getCardType());
@@ -32,10 +38,12 @@ public class ConversionService {
         restCard.setOwner(inputCard.getOwner().getOwner());
         restCard.setContactInfo(convertContactListToRestContactList(inputCard.getOwner().getContacts()));
 
+        logger.debug("Card objektum sikeresen átalakítva RestCard objektummá: " + restCard.getCardNumber());
         return restCard;
     }
 
     public Card convertRestCardToCard(RestCard inputRestCard, CardRepository cardRepository, CardTypeRepository cardTypeRepository, OwnerRepository ownerRepository, ContactRepository contactRepository) {
+        logger.debug("RestCard objektum átalakítása Card objektummá: " + inputRestCard.getCardNumber());
 
         inputRestCard.verifyRestCard(cardTypeRepository, cardRepository);
 
@@ -49,6 +57,7 @@ public class ConversionService {
         card.getOwner().setContacts(convertRestContactListToContactList(contactRepository, inputRestCard.getContactInfo(), card.getOwner()));
         card.setCardHash(inputRestCard.createHash());
 
+        logger.debug("RestCard objektum sikeresen átalakítva Card objektummá: " + card.getCardNumber());
         return card;
     }
 

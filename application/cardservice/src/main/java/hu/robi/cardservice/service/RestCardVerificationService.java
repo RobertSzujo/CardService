@@ -8,6 +8,8 @@ import hu.robi.cardservice.entity.RestCard;
 import hu.robi.cardservice.entity.RestContact;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.CreditCardValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -15,6 +17,7 @@ import java.util.regex.Pattern;
 public class RestCardVerificationService {
 
     //define fields
+    Logger logger = LoggerFactory.getLogger(RestCardVerificationService.class);
 
     private final RestCard inputRestCard;
 
