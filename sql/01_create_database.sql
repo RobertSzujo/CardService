@@ -16,7 +16,7 @@ CREATE TABLE CARD_TYPE (
   
 CREATE TABLE CONTACT (
   contact_id int NOT NULL PRIMARY KEY,
-  owner_id int REFERENCES OWNER (owner_id),
+  owner_id int NOT NULL REFERENCES OWNER (owner_id),
   contact_type VARCHAR(5) NOT NULL,
   contact VARCHAR2(128) );
 
@@ -24,8 +24,8 @@ CREATE TABLE CARD (
   card_number CHAR(16) NOT NULL PRIMARY KEY,
   valid_thru CHAR(5),
   card_hash VARCHAR2(128),
-  card_type_id int REFERENCES CARD_TYPE (card_type_id),
-  owner_id int REFERENCES OWNER (owner_id),
+  card_type_id int NOT NULL REFERENCES CARD_TYPE (card_type_id),
+  owner_id int NOT NULL REFERENCES OWNER (owner_id),
   disabled CHAR(1) DEFAULT 'N' );
   
 CREATE SEQUENCE OWNER_SEQ
