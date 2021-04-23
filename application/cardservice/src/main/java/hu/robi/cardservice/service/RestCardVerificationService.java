@@ -7,6 +7,8 @@ import hu.robi.cardservice.entity.CardType;
 import hu.robi.cardservice.entity.RestCard;
 import hu.robi.cardservice.entity.RestContact;
 import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
+import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.commons.validator.routines.CreditCardValidator;
 
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -107,21 +109,12 @@ public class RestCardVerificationService {
             return "Nem került megadásra kártyaszám!";
         }
 
-        Pattern cardNumberPattern = Pattern.compile("\\d{16}");
-        if (!cardNumberPattern.matcher(cardNumber).matches()) {
-            return "A kártyaszámnak 16 számjegyből kell állnia, más karakter (pl. kötőjel, szóköz) nem lehet benne. Például: 5339019326001410";
+        if (cardType.contains("MASTER") && !CreditCardValidator.MASTERCARD_VALIDATOR.isValid(cardNumber)) {
+            return "A megadott MasterCard kártyaszám nem érvényes!";
         }
 
-        if (cardType.contains("MASTER") && !cardNumber.startsWith("5")) {
-            return "A kártyszám nem érvényes, MasterCard esetén a kártyaszám csak 5-össel kezdődhet!";
-        }
-
-        if (cardType.contains("VISA") && !cardNumber.startsWith("4")) {
-            return "A kártyaszám nem érvényes, Visa esetén a kártyaszám csak 4-essel kezdődhet!";
-        }
-
-        if (!LuhnCheckDigit.LUHN_CHECK_DIGIT.isValid(cardNumber)) {
-            return "A kártyaszám nem érvényes.";
+        if (cardType.contains("VISA") && !CreditCardValidator.VISA_VALIDATOR.isValid(cardNumber)) {
+            return "A megadott VISA kártyaszám nem érvényes!";
         }
 
         return "OK";
@@ -173,7 +166,6 @@ public class RestCardVerificationService {
     }
 
     private String verifyContacts() {
-        Pattern emailPattern = Pattern.compile("\\w+\\@{1}\\w+\\.{1}\\w+");
         Pattern smsPattern = Pattern.compile("\\+{1}\\d{7,15}");
 
         for (RestContact restContact : inputRestCard.getContactInfo()) {
@@ -183,7 +175,7 @@ public class RestCardVerificationService {
             if (!contactType.equals("SMS") && !contactType.equals("EMAIL")) {
                 return "A kapcsolat típusa nem megfelelő, csak a következő értékek adhatóak meg: EMAIL (e-mail cím esetén) vagy SMS (telefonszám esetén)";
             }
-            if (contactType.equals("EMAIL") && !emailPattern.matcher(contact).matches()) {
+            if (contactType.equals("EMAIL") && !EmailValidator.getInstance().isValid(contact)) {
                 return "A felvett e-mail cím (" + contact + ") nem megfelelő formátumú. Példa helyes formátumra: example@example.com";
             }
 

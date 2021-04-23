@@ -22,7 +22,7 @@ public class RestCard {
 
     private String validThru;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(value= "CVV", access = JsonProperty.Access.WRITE_ONLY)
     private String cvv;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
