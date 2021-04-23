@@ -13,8 +13,9 @@ public class Contact {
     @Column(name = "contact_id")
     private int contactId;
 
-    @Column(name = "owner_id")
-    private int ownerId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
 
     @Column(name = "contact_type")
     private String contactType;
@@ -28,9 +29,9 @@ public class Contact {
 
     }
 
-    public Contact(int contactId, int ownerId, String contactType, String contact) {
+    public Contact(int contactId, Owner owner, String contactType, String contact) {
         this.contactId = contactId;
-        this.ownerId = ownerId;
+        this.owner = owner;
         this.contactType = contactType;
         this.contact = contact;
     }
@@ -45,12 +46,12 @@ public class Contact {
         this.contactId = contactId;
     }
 
-    public int getOwner() {
-        return ownerId;
+    public Owner getOwner() {
+        return owner;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
     public String getContactType() {
@@ -76,7 +77,7 @@ public class Contact {
     public String toString() {
         return "Contact{" +
                 "contactId=" + contactId +
-                ", ownerId=" + ownerId +
+                ", owner=" + owner +
                 ", contactType='" + contactType + '\'' +
                 ", contact='" + contact + '\'' +
                 '}';

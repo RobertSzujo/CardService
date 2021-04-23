@@ -123,7 +123,7 @@ public class ConversionService {
 
             if (matchingContactIndex == -1) {
                 Contact newContact = new Contact();
-                newContact.setOwnerId(cardOwner.getOwnerId());
+                newContact.setOwner(cardOwner);
                 newContact.setContactType(inputRestContact.getType());
                 newContact.setContact(inputRestContact.getContact());
                 contactList.add(newContact);

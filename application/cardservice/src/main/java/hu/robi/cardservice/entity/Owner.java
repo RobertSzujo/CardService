@@ -17,8 +17,7 @@ public class Owner {
     @Column(name = "owner")
     private String owner;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "owner_id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="owner")
     private List<Contact> contacts;
 
     //define constructors
