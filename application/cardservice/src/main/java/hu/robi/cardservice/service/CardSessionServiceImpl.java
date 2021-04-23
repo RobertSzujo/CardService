@@ -6,6 +6,9 @@ import hu.robi.cardservice.dao.ContactRepository;
 import hu.robi.cardservice.dao.OwnerRepository;
 import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.RestCard;
+import hu.robi.cardservice.rest.CardRestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,6 +18,8 @@ import java.util.Optional;
 
 @Service
 public class CardSessionServiceImpl implements CardSessionService {
+
+    Logger logger = LoggerFactory.getLogger(CardSessionServiceImpl.class);
 
     private final CardRepository cardRepository;
     private final CardTypeRepository cardTypeRepository;
@@ -29,11 +34,6 @@ public class CardSessionServiceImpl implements CardSessionService {
     }
 
     @Override
-    public List<Card> requestAllCards() {
-        return cardRepository.findAll();
-    }
-
-    @Override
     public RestCard requestCard(String inputCardNumber) {
         Optional<Card> requestedCard = cardRepository.findById(inputCardNumber);
         RestCard requestedRestCard;
@@ -41,6 +41,7 @@ public class CardSessionServiceImpl implements CardSessionService {
             ConversionService conversionService = new ConversionService();
             requestedRestCard = conversionService.convertCardToRestCard(requestedCard.get());
         } else {
+            logger.warn("Kártya lekérdezése sikertelen (nem található kártyaszám): " + inputCardNumber);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A megadott kártyaszám nem található az adatbázisban.");
         }
         return requestedRestCard;
@@ -61,16 +62,13 @@ public class CardSessionServiceImpl implements CardSessionService {
 
     @Override
     public void disableCard(String cardNumber) {
-        //get card by card number (if exists)
         Optional<Card> result = cardRepository.findById(cardNumber);
         if (!result.isPresent()) {
+            logger.warn("Sikertelen letiltás kérés kártyaszámra (nem található kártyaszám): " + cardNumber);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A megadott kártyaszám nem található az adatbázisban.");
         }
         Card theCard = result.get();
-
-        //disable card
         theCard.setIsDisabledRaw('Y');
-
         cardRepository.save(theCard);
 
     }

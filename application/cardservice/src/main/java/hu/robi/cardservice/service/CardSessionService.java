@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface CardSessionService {
 
-    List<Card> requestAllCards();
-
     RestCard requestCard(String inputCardNumber);
 
     void createCard(RestCard inputRestCard);
