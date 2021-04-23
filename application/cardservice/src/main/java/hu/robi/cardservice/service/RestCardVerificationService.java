@@ -6,7 +6,6 @@ import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.CardType;
 import hu.robi.cardservice.entity.RestCard;
 import hu.robi.cardservice.entity.RestContact;
-import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.CreditCardValidator;
 
