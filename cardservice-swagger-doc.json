@@ -152,13 +152,16 @@
         "type": "object",
         "properties": {
           "CVV": {
-            "type": "string"
+            "type": "string",
+            "description": "CVV code of the card. Digits only."
           },
           "cardNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Number of the card. Digits only, separation characters are not allowed. Must be a valid MasterCard or VISA card number."
           },
           "cardType": {
-            "type": "string"
+            "type": "string",
+            "description": "Type of the card. Must match with a type available in the database."
           },
           "contactInfo": {
             "type": "array",
@@ -167,10 +170,12 @@
             }
           },
           "owner": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the card owner. The input data will be converted to uppercase characters."
           },
           "validThru": {
-            "type": "string"
+            "type": "string",
+            "description": "Expiration date of the card, in MM/YY format (must include the / character in the input, e.g. 04/23)"
           }
         }
       },
@@ -179,10 +184,12 @@
         "type": "object",
         "properties": {
           "cardNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Number of the card. Digits only, separation characters are not allowed. Must be a valid MasterCard or VISA card number."
           },
           "cardType": {
-            "type": "string"
+            "type": "string",
+            "description": "Type of the card. Must match with a type available in the database."
           },
           "contactInfo": {
             "type": "array",
@@ -191,13 +198,16 @@
             }
           },
           "disabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Returns either if the card is disabled (true) or not (false)."
           },
           "owner": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the card owner. The input data will be converted to uppercase characters."
           },
           "validThru": {
-            "type": "string"
+            "type": "string",
+            "description": "Expiration date of the card, in MM/YY format (must include the / character in the input, e.g. 04/23)"
           }
         }
       },
@@ -206,16 +216,20 @@
         "type": "object",
         "properties": {
           "CVV": {
-            "type": "string"
+            "type": "string",
+            "description": "CVV code of the card. Digits only."
           },
           "cardNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "Number of the card. Digits only, separation characters are not allowed. Must be a valid MasterCard or VISA card number."
           },
           "cardType": {
-            "type": "string"
+            "type": "string",
+            "description": "Type of the card. Must match with a type available in the database."
           },
           "validThru": {
-            "type": "string"
+            "type": "string",
+            "description": "Expiration date of the card, in MM/YY format (must include the / character in the input, e.g. 04/23)"
           }
         }
       },
@@ -224,10 +238,12 @@
         "type": "object",
         "properties": {
           "contact": {
-            "type": "string"
+            "type": "string",
+            "description": "A phone number (if SMS is provided in type) in international format, or e-mail address (if EMAIL is provided in type)"
           },
           "type": {
-            "type": "string"
+            "type": "string",
+            "description": "Type of the contact. Only EMAIL or SMS is accepted."
           }
         }
       }
