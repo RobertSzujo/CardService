@@ -1,5 +1,7 @@
 package hu.robi.cardservice.service;
 
+import org.springframework.stereotype.Component;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
@@ -8,20 +10,16 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
+@Component
 public class EncryptService {
 
     //define fields
 
-    byte[] salt;
-    SecretKeyFactory secretKeyFactory;
+    private SecretKeyFactory secretKeyFactory;
 
     //define constructor
 
     public EncryptService() {
-        SecureRandom random = new SecureRandom();
-        salt = new byte[16];
-        random.nextBytes(salt);
-
         try {
             secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         } catch (NoSuchAlgorithmException e) {
@@ -31,8 +29,31 @@ public class EncryptService {
 
     //define methods
 
-    public String EncryptString(String stringToEncrypt) {
+    public String createNewHash(String stringToHash) {
+        byte[] salt = new byte[16];
+        SecureRandom random = new SecureRandom();
+        random.nextBytes(salt);
+
+        return encryptString(stringToHash, salt);
+    }
+
+    public boolean equalsToHash(String stringToCompare, String hashToCompare) {
+        byte[] salt;
+        salt = Base64.getDecoder().decode(hashToCompare.substring(0, 24));
+
+        String encryptedString = encryptString(stringToCompare, salt);
+
+        return encryptedString.equals(hashToCompare);
+    }
+
+    private String encryptString(String stringToEncrypt, byte[] salt) {
         KeySpec keySpec = new PBEKeySpec(stringToEncrypt.toCharArray(), salt, 65536, 128);
+
+        try {
+            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
         byte[] hash = new byte[0];
         try {
@@ -44,13 +65,7 @@ public class EncryptService {
         String encodedHash = Base64.getEncoder().encodeToString(hash);
         String encodedSalt = Base64.getEncoder().encodeToString(salt);
 
-        String encryptedString = encodedSalt + encodedHash;
-
-        return encryptedString;
-    }
-
-    public void generateSaltFromBase64(String encodedSalt) {
-        salt = Base64.getDecoder().decode(encodedSalt);
+        return encodedSalt + encodedHash;
     }
 
 }

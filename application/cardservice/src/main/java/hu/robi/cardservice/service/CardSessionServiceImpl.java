@@ -1,9 +1,6 @@
 package hu.robi.cardservice.service;
 
 import hu.robi.cardservice.dao.CardRepository;
-import hu.robi.cardservice.dao.CardTypeRepository;
-import hu.robi.cardservice.dao.ContactRepository;
-import hu.robi.cardservice.dao.OwnerRepository;
 import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.RestCard;
 import org.slf4j.Logger;
@@ -11,23 +8,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Optional;
 
 @Service
 public class CardSessionServiceImpl implements CardSessionService {
 
+    private final CardRepository cardRepository;
+    private final ConversionService conversionService;
+    private final CardValidationService cardValidationService;
     Logger logger = LoggerFactory.getLogger(CardSessionServiceImpl.class);
 
-    private final CardRepository cardRepository;
-    private final CardTypeRepository cardTypeRepository;
-    private final ContactRepository contactRepository;
-    private final OwnerRepository ownerRepository;
-
-    public CardSessionServiceImpl(CardRepository cardRepository, CardTypeRepository cardTypeRepository, ContactRepository contactRepository, OwnerRepository ownerRepository) {
+    public CardSessionServiceImpl(CardRepository cardRepository, ConversionService conversionService, CardValidationService cardValidationService) {
         this.cardRepository = cardRepository;
-        this.cardTypeRepository = cardTypeRepository;
-        this.contactRepository = contactRepository;
-        this.ownerRepository = ownerRepository;
+        this.conversionService = conversionService;
+        this.cardValidationService = cardValidationService;
     }
 
     @Override
@@ -35,7 +30,6 @@ public class CardSessionServiceImpl implements CardSessionService {
         Optional<Card> requestedCard = cardRepository.findById(inputCardNumber);
         RestCard requestedRestCard;
         if (requestedCard.isPresent()) {
-            ConversionService conversionService = new ConversionService();
             requestedRestCard = conversionService.convertCardToRestCard(requestedCard.get());
         } else {
             logger.warn("Kártya lekérdezése sikertelen (nem található kártyaszám): " + inputCardNumber);
@@ -46,8 +40,7 @@ public class CardSessionServiceImpl implements CardSessionService {
 
     @Override
     public void createCard(RestCard inputRestCard) {
-        ConversionService conversionService = new ConversionService();
-        Card createdCard = conversionService.convertRestCardToCard(inputRestCard, cardRepository, cardTypeRepository, ownerRepository, contactRepository);
+        Card createdCard = conversionService.convertRestCardToCard(inputRestCard);
 
         cardRepository.save(createdCard);
         logger.debug("Kártya sikeresen mentve az adatbázisba: " + createdCard.getCardNumber());
@@ -55,8 +48,7 @@ public class CardSessionServiceImpl implements CardSessionService {
 
     @Override
     public String validateCard(RestCard inputRestCard) {
-        CardValidationService cardValidationService = new CardValidationService(inputRestCard);
-        return (cardValidationService.validateCard(cardTypeRepository, cardRepository));
+        return (cardValidationService.validateCard(inputRestCard));
     }
 
     @Override

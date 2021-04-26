@@ -6,37 +6,40 @@ import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.CardType;
 import hu.robi.cardservice.entity.RestCard;
 import hu.robi.cardservice.entity.RestContact;
-import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.CreditCardValidator;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+@Service
 public class RestCardVerificationService {
 
+    private final CardRepository cardRepository;
+    private final CardTypeRepository cardTypeRepository;
     //define fields
     Logger logger = LoggerFactory.getLogger(RestCardVerificationService.class);
 
-    private final RestCard inputRestCard;
-
     //define constructor
 
-    public RestCardVerificationService(RestCard inputRestCard) {
-        this.inputRestCard = inputRestCard;
+    public RestCardVerificationService(CardRepository cardRepository, CardTypeRepository cardTypeRepository) {
+        this.cardRepository = cardRepository;
+        this.cardTypeRepository = cardTypeRepository;
     }
 
     //define methods
 
-    public String verifyCardForValidation(CardTypeRepository cardTypeRepository, CardRepository cardRepository) {
+    public String verifyCardForValidation(RestCard inputRestCard) {
 
-        String cardDataResult = verifyCardData(cardTypeRepository);
+        String cardDataResult = verifyCardData(inputRestCard);
         if (!cardDataResult.equals("OK")) {
             return cardDataResult;
         }
 
-        String cardDoesNotExistResult = verifyCardDoesNotExist(cardRepository);
+        String cardDoesNotExistResult = verifyCardDoesNotExist(inputRestCard);
         if (cardDoesNotExistResult.equals("OK")) {
             return "A megadott kártyaszám nem található az adatbázisban.";
         }
@@ -44,19 +47,19 @@ public class RestCardVerificationService {
         return "OK";
     }
 
-    public String verifyCardForCreation(CardTypeRepository cardTypeRepository, CardRepository cardRepository) {
+    public String verifyCardForCreation(RestCard inputRestCard) {
 
-        String cardDataResult = verifyCardData(cardTypeRepository);
+        String cardDataResult = verifyCardData(inputRestCard);
         if (!cardDataResult.equals("OK")) {
             return cardDataResult;
         }
 
-        String cardDoesNotExistResult = verifyCardDoesNotExist(cardRepository);
+        String cardDoesNotExistResult = verifyCardDoesNotExist(inputRestCard);
         if (!cardDoesNotExistResult.equals("OK")) {
             return cardDoesNotExistResult;
         }
 
-        String contactsResult = verifyContacts();
+        String contactsResult = verifyContacts(inputRestCard);
         if (!contactsResult.equals("OK")) {
             return contactsResult;
         }
@@ -64,23 +67,23 @@ public class RestCardVerificationService {
         return "OK";
     }
 
-    private String verifyCardData(CardTypeRepository cardTypeRepository) {
-        String cardTypeResult = verifyCardType(cardTypeRepository);
+    private String verifyCardData(RestCard inputRestCard) {
+        String cardTypeResult = verifyCardType(inputRestCard);
         if (!cardTypeResult.equals("OK")) {
             return cardTypeResult;
         }
 
-        String cardNumberResult = verifyCardNumber();
+        String cardNumberResult = verifyCardNumber(inputRestCard);
         if (!cardNumberResult.equals("OK")) {
             return cardNumberResult;
         }
 
-        String validThruResult = verifyValidThru();
+        String validThruResult = verifyValidThru(inputRestCard);
         if (!validThruResult.equals("OK")) {
             return validThruResult;
         }
 
-        String cvvResult = verifyCvv();
+        String cvvResult = verifyCvv(inputRestCard);
         if (!cvvResult.equals("OK")) {
             return cvvResult;
         }
@@ -88,7 +91,7 @@ public class RestCardVerificationService {
         return "OK";
     }
 
-    private String verifyCardType(CardTypeRepository cardTypeRepository) {
+    private String verifyCardType(RestCard inputRestCard) {
         String cardType = inputRestCard.getCardType();
 
         if (cardType == null) {
@@ -103,7 +106,7 @@ public class RestCardVerificationService {
         return "OK";
     }
 
-    private String verifyCardNumber() {
+    private String verifyCardNumber(RestCard inputRestCard) {
         String cardNumber = inputRestCard.getCardNumber();
         String cardType = inputRestCard.getCardType();
 
@@ -122,7 +125,7 @@ public class RestCardVerificationService {
         return "OK";
     }
 
-    private String verifyCardDoesNotExist(CardRepository cardRepository) {
+    private String verifyCardDoesNotExist(RestCard inputRestCard) {
         String cardNumber = inputRestCard.getCardNumber();
         Optional<Card> matchingCard = cardRepository.findById(cardNumber);
         if (matchingCard.isPresent()) {
@@ -132,7 +135,7 @@ public class RestCardVerificationService {
         return "OK";
     }
 
-    private String verifyValidThru() {
+    private String verifyValidThru(RestCard inputRestCard) {
         String validThru = inputRestCard.getValidThru();
 
         if (validThru == null) {
@@ -152,7 +155,7 @@ public class RestCardVerificationService {
         return "OK";
     }
 
-    private String verifyCvv() {
+    private String verifyCvv(RestCard inputRestCard) {
         String cvv = inputRestCard.getCvv();
 
         if (cvv == null) {
@@ -167,7 +170,7 @@ public class RestCardVerificationService {
         return "OK";
     }
 
-    private String verifyContacts() {
+    private String verifyContacts(RestCard inputRestCard) {
         Pattern smsPattern = Pattern.compile("\\+{1}\\d{7,15}");
 
         for (RestContact restContact : inputRestCard.getContactInfo()) {

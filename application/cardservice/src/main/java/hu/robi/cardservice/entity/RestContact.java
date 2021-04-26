@@ -10,12 +10,6 @@ public class RestContact {
 
     private String contact;
 
-    //define constructor
-
-    public RestContact() {
-
-    }
-
     //define getter/setter
 
     public String getType() {

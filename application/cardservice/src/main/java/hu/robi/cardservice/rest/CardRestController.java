@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/ecards")
 public class CardRestController {
 
-    Logger logger = LoggerFactory.getLogger(CardRestController.class);
-
     private final CardSessionService cardSessionService;
+    Logger logger = LoggerFactory.getLogger(CardRestController.class);
 
     public CardRestController(CardSessionService cardSessionService) {
         this.cardSessionService = cardSessionService;

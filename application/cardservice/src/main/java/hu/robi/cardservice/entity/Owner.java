@@ -17,7 +17,7 @@ public class Owner {
     @Column(name = "owner")
     private String owner;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="owner")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Contact> contacts;
 
     //define constructors

@@ -2,12 +2,12 @@ package hu.robi.cardservice.service;
 
 import hu.robi.cardservice.dao.CardRepository;
 import hu.robi.cardservice.dao.CardTypeRepository;
-import hu.robi.cardservice.dao.ContactRepository;
 import hu.robi.cardservice.dao.OwnerRepository;
 import hu.robi.cardservice.entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -15,13 +15,22 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
+@Service
 public class ConversionService {
 
+    private final CardRepository cardRepository;
+    private final CardTypeRepository cardTypeRepository;
+    private final OwnerRepository ownerRepository;
+    private final RestCardVerificationService restCardVerificationService;
+    private final EncryptService encryptService;
     Logger logger = LoggerFactory.getLogger(ConversionService.class);
 
-    //define constructor
-
-    public ConversionService() {
+    public ConversionService(CardRepository cardRepository, CardTypeRepository cardTypeRepository, OwnerRepository ownerRepository, RestCardVerificationService restCardVerificationService, EncryptService encryptService) {
+        this.cardRepository = cardRepository;
+        this.cardTypeRepository = cardTypeRepository;
+        this.ownerRepository = ownerRepository;
+        this.restCardVerificationService = restCardVerificationService;
+        this.encryptService = encryptService;
     }
 
     //define methods
@@ -42,20 +51,20 @@ public class ConversionService {
         return restCard;
     }
 
-    public Card convertRestCardToCard(RestCard inputRestCard, CardRepository cardRepository, CardTypeRepository cardTypeRepository, OwnerRepository ownerRepository, ContactRepository contactRepository) {
+    public Card convertRestCardToCard(RestCard inputRestCard) {
         logger.debug("RestCard objektum átalakítása Card objektummá: " + inputRestCard.getCardNumber());
 
-        inputRestCard.verifyRestCard(cardTypeRepository, cardRepository);
+        verifyRestCard(inputRestCard);
 
         Card card = new Card();
 
         card.setCardNumber(inputRestCard.getCardNumber());
         card.setValidThru(inputRestCard.getValidThru());
         card.setIsDisabledRaw('N'); //default value for new cards
-        card.setCardType(createCardType(cardTypeRepository, inputRestCard.getCardType()));
-        card.setOwner(createOwner(ownerRepository, inputRestCard.getOwner()));
-        card.getOwner().setContacts(convertRestContactListToContactList(contactRepository, inputRestCard.getContactInfo(), card.getOwner()));
-        card.setCardHash(inputRestCard.createHash());
+        card.setCardType(createCardType(inputRestCard.getCardType()));
+        card.setOwner(createOwner(inputRestCard.getOwner()));
+        card.getOwner().setContacts(convertRestContactListToContactList(inputRestCard.getContactInfo(), card.getOwner()));
+        card.setCardHash(createHash(inputRestCard));
 
         logger.debug("RestCard objektum sikeresen átalakítva Card objektummá: " + card.getCardNumber());
         return card;
@@ -86,12 +95,12 @@ public class ConversionService {
     }
 
     //helper methods for RestCard -> Card conversion
-    private CardType createCardType(CardTypeRepository cardTypeRepository, String cardTypeName) {
+    private CardType createCardType(String cardTypeName) {
         Optional<CardType> matchingCardType = cardTypeRepository.findByCardType(cardTypeName);
         return (matchingCardType.get());
     }
 
-    private Owner createOwner(OwnerRepository ownerRepository, String ownerName) {
+    private Owner createOwner(String ownerName) {
         Owner cardOwner = new Owner();
 
         Optional<Owner> matchingOwner = ownerRepository.findByOwner(ownerName);
@@ -103,7 +112,7 @@ public class ConversionService {
         return cardOwner;
     }
 
-    private List<Contact> convertRestContactListToContactList(ContactRepository contactRepository, List<RestContact> inputRestContactList, Owner cardOwner) {
+    private List<Contact> convertRestContactListToContactList(List<RestContact> inputRestContactList, Owner cardOwner) {
 
         List<Contact> contactList = cardOwner.getContacts();
 
@@ -131,6 +140,19 @@ public class ConversionService {
         }
 
         return contactList;
+    }
+
+    private void verifyRestCard(RestCard inputRestCard) {
+        String cardVerificationResult = restCardVerificationService.verifyCardForCreation(inputRestCard);
+        if (!cardVerificationResult.equals("OK")) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, cardVerificationResult);
+        }
+    }
+
+    public String createHash(RestCard inputRestCard) {
+        String cardDataToHash = inputRestCard.getCardNumber() + inputRestCard.getValidThru() + inputRestCard.getCvv();
+        String hash = encryptService.createNewHash(cardDataToHash);
+        return hash;
     }
 
 

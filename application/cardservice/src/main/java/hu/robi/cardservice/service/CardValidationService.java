@@ -1,41 +1,43 @@
 package hu.robi.cardservice.service;
 
 import hu.robi.cardservice.dao.CardRepository;
-import hu.robi.cardservice.dao.CardTypeRepository;
 import hu.robi.cardservice.entity.Card;
 import hu.robi.cardservice.entity.RestCard;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
+@Service
 public class CardValidationService {
 
     //define fields
-    RestCard inputRestCard;
-    String cardNumber;
-    String cardType;
-    String validThru;
-    String cvv;
+    private final CardRepository cardRepository;
+    private final EncryptService encryptService;
+    private final RestCardVerificationService restCardVerificationService;
 
     //define constructor
-    public CardValidationService(RestCard inputRestCard) {
-        this.inputRestCard = inputRestCard;
-        cardNumber = inputRestCard.getCardNumber();
-        cardType = inputRestCard.getCardType();
-        validThru = inputRestCard.getValidThru();
-        cvv = inputRestCard.getCvv();
+    public CardValidationService(CardRepository cardRepository, EncryptService encryptService, RestCardVerificationService restCardVerificationService) {
+        this.cardRepository = cardRepository;
+        this.encryptService = encryptService;
+        this.restCardVerificationService = restCardVerificationService;
     }
 
 
     //define methods
 
-    public String validateCard(CardTypeRepository cardTypeRepository, CardRepository cardRepository) {
+    public String validateCard(RestCard inputRestCard) {
 
-        verifyInputData(cardTypeRepository, cardRepository);
+        verifyInputData(inputRestCard);
 
-        Optional<Card> foundCard = cardRepository.findById(cardNumber);
+        Optional<Card> foundCard = cardRepository.findById(inputRestCard.getCardNumber());
         Card matchedCard = foundCard.get();
+
+        String cardNumber = inputRestCard.getCardNumber();
+        String cardType = inputRestCard.getCardType();
+        String validThru = inputRestCard.getValidThru();
+        String cvv = inputRestCard.getCvv();
 
         //check cardType, validThru (must match with the card) and isDisabled (must be false or 'N')
         if (!cardType.equals(matchedCard.getCardType().getCardType()) ||
@@ -44,28 +46,19 @@ public class CardValidationService {
             return "INVALID";
         }
 
-        String inputCardHash = hashInputCard(cardNumber, validThru, cvv, matchedCard);
-        if (!inputCardHash.equals(matchedCard.getCardHash())) {
+        String inputCardDataToHash = cardNumber + cardType + cvv;
+        if (!encryptService.equalsToHash(inputCardDataToHash, matchedCard.getCardHash())) {
             return "INVALID";
         }
 
         return "VALID";
     }
 
-    private void verifyInputData(CardTypeRepository cardTypeRepository, CardRepository cardRepository) {
-        RestCardVerificationService restCardVerificationService = new RestCardVerificationService(inputRestCard);
-        String verificationResult = restCardVerificationService.verifyCardForValidation(cardTypeRepository, cardRepository);
-        if (!verificationResult.equals("OK")) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, verificationResult);
+    private void verifyInputData(RestCard inputRestCard) {
+        String cardVerificationResult = restCardVerificationService.verifyCardForValidation(inputRestCard);
+        if (!cardVerificationResult.equals("OK")) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, cardVerificationResult);
         }
-    }
-
-    private String hashInputCard(String cardNumber, String validThru, String cvv, Card matchedCard) {
-        String inputDataToHash = cardNumber + validThru + cvv;
-        EncryptService encryptService = new EncryptService();
-        encryptService.generateSaltFromBase64(matchedCard.getCardHash().substring(0, 24));
-        String inputCardHash = encryptService.EncryptString(inputDataToHash);
-        return inputCardHash;
     }
 
 }
