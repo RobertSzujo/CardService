@@ -16,16 +16,16 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 @Service
-public class ConversionService {
+public class CardConversionService {
 
     private final CardRepository cardRepository;
     private final CardTypeRepository cardTypeRepository;
     private final OwnerRepository ownerRepository;
     private final RestCardVerificationService restCardVerificationService;
     private final EncryptService encryptService;
-    Logger logger = LoggerFactory.getLogger(ConversionService.class);
+    Logger logger = LoggerFactory.getLogger(CardConversionService.class);
 
-    public ConversionService(CardRepository cardRepository, CardTypeRepository cardTypeRepository, OwnerRepository ownerRepository, RestCardVerificationService restCardVerificationService, EncryptService encryptService) {
+    public CardConversionService(CardRepository cardRepository, CardTypeRepository cardTypeRepository, OwnerRepository ownerRepository, RestCardVerificationService restCardVerificationService, EncryptService encryptService) {
         this.cardRepository = cardRepository;
         this.cardTypeRepository = cardTypeRepository;
         this.ownerRepository = ownerRepository;

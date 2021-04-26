@@ -15,13 +15,13 @@ import java.util.Optional;
 public class CardSessionServiceImpl implements CardSessionService {
 
     private final CardRepository cardRepository;
-    private final ConversionService conversionService;
+    private final CardConversionService cardConversionService;
     private final CardValidationService cardValidationService;
     Logger logger = LoggerFactory.getLogger(CardSessionServiceImpl.class);
 
-    public CardSessionServiceImpl(CardRepository cardRepository, ConversionService conversionService, CardValidationService cardValidationService) {
+    public CardSessionServiceImpl(CardRepository cardRepository, CardConversionService cardConversionService, CardValidationService cardValidationService) {
         this.cardRepository = cardRepository;
-        this.conversionService = conversionService;
+        this.cardConversionService = cardConversionService;
         this.cardValidationService = cardValidationService;
     }
 
@@ -30,7 +30,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         Optional<Card> requestedCard = cardRepository.findById(inputCardNumber);
         RestCard requestedRestCard;
         if (requestedCard.isPresent()) {
-            requestedRestCard = conversionService.convertCardToRestCard(requestedCard.get());
+            requestedRestCard = cardConversionService.convertCardToRestCard(requestedCard.get());
         } else {
             logger.warn("Kártya lekérdezése sikertelen (nem található kártyaszám): " + inputCardNumber);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A megadott kártyaszám nem található az adatbázisban.");
@@ -40,7 +40,7 @@ public class CardSessionServiceImpl implements CardSessionService {
 
     @Override
     public void createCard(RestCard inputRestCard) {
-        Card createdCard = conversionService.convertRestCardToCard(inputRestCard);
+        Card createdCard = cardConversionService.convertRestCardToCard(inputRestCard);
 
         cardRepository.save(createdCard);
         logger.debug("Kártya sikeresen mentve az adatbázisba: " + createdCard.getCardNumber());
