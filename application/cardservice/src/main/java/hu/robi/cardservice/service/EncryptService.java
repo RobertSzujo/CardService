@@ -1,6 +1,10 @@
 package hu.robi.cardservice.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -16,6 +20,7 @@ public class EncryptService {
     //define fields
 
     private SecretKeyFactory secretKeyFactory;
+    Logger logger = LoggerFactory.getLogger(EncryptService.class);
 
     //define constructor
 
@@ -23,7 +28,8 @@ public class EncryptService {
         try {
             secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            logger.error("Hiba az EncryptService létrehozása során: " +e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -49,17 +55,12 @@ public class EncryptService {
     private String encryptString(String stringToEncrypt, byte[] salt) {
         KeySpec keySpec = new PBEKeySpec(stringToEncrypt.toCharArray(), salt, 65536, 128);
 
-        try {
-            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        byte[] hash = new byte[0];
+        byte[] hash;
         try {
             hash = secretKeyFactory.generateSecret(keySpec).getEncoded();
         } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
+            logger.error("Hiba a hash készítése közben: " +e.getMessage());
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 
         String encodedHash = Base64.getEncoder().encodeToString(hash);
