@@ -46,7 +46,7 @@ public class CardValidationService {
             return "INVALID";
         }
 
-        String inputCardDataToHash = cardNumber + cardType + cvv;
+        String inputCardDataToHash = cardNumber + validThru + cvv;
         if (!encryptService.equalsToHash(inputCardDataToHash, matchedCard.getCardHash())) {
             return "INVALID";
         }
