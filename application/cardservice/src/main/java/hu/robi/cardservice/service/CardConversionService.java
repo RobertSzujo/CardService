@@ -118,6 +118,7 @@ public class CardConversionService {
 
         if (contactList == null) {
             if (inputRestContactList.size() == 0) {
+                logger.warn("Hiba a kártya létrehozása során: Nincs a kártyatulajdonosnak elérhetősége!");
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "A kártyatulajdonosnak nincs elérhetősége, legalább egyet meg kell adni!");
             } else {
                 contactList = new ArrayList<>();
@@ -145,6 +146,7 @@ public class CardConversionService {
     private void verifyRestCard(RestCard inputRestCard) {
         String cardVerificationResult = restCardVerificationService.verifyCardForCreation(inputRestCard);
         if (!cardVerificationResult.equals("OK")) {
+            logger.warn("Hiba a " + inputRestCard.getCardNumber() + " kártya létrehozása során: " + cardVerificationResult);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, cardVerificationResult);
         }
     }

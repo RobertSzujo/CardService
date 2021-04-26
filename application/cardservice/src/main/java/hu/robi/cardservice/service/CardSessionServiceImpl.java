@@ -32,7 +32,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         if (requestedCard.isPresent()) {
             requestedRestCard = cardConversionService.convertCardToRestCard(requestedCard.get());
         } else {
-            logger.warn("Kártya lekérdezése sikertelen (nem található kártyaszám): " + inputCardNumber);
+            logger.warn("Hiba a " + inputCardNumber + " kártya lekérdezése során: nem található kártyaszám");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A megadott kártyaszám nem található az adatbázisban.");
         }
         return requestedRestCard;
@@ -43,7 +43,7 @@ public class CardSessionServiceImpl implements CardSessionService {
         Card createdCard = cardConversionService.convertRestCardToCard(inputRestCard);
 
         cardRepository.save(createdCard);
-        logger.debug("Kártya sikeresen mentve az adatbázisba: " + createdCard.getCardNumber());
+        logger.debug("Kártya sikeresen mentve az adatbázisban: " + createdCard.getCardNumber());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class CardSessionServiceImpl implements CardSessionService {
     public void disableCard(String cardNumber) {
         Optional<Card> result = cardRepository.findById(cardNumber);
         if (!result.isPresent()) {
-            logger.warn("Sikertelen letiltás kérés kártyaszámra (nem található kártyaszám): " + cardNumber);
+            logger.warn("Hiba a " + cardNumber + " kártya letiltása során: nem található kártyaszám");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "A megadott kártyaszám nem található az adatbázisban.");
         }
         Card theCard = result.get();
