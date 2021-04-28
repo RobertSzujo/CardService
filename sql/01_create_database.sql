@@ -57,3 +57,5 @@ INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, '
 INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'VISA CLASSIC BANKKÁRTYA');
 INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'VISA VIRTUÁLIS BANKKÁRTYA');
 INSERT INTO CARD_TYPE (card_type_id, card_type) VALUES (CARD_TYPE_SEQ.nextval, 'VISA ELECTRON BANKKÁRTYA');
+
+COMMIT;
