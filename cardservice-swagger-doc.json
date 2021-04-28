@@ -9,6 +9,10 @@
     {
       "url": "http://localhost:8080",
       "description": "Running as standalone application on local computer"
+    },
+    {
+      "url": "http://localhost:7001/cardservice",
+      "description": "Running on a local WebLogic server (using default port)"
     }
   ],
   "tags": [
