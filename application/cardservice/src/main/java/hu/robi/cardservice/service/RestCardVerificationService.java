@@ -59,6 +59,11 @@ public class RestCardVerificationService {
             return cardDoesNotExistResult;
         }
 
+        String ownerResult = verifyOwner(inputRestCard);
+        if (!ownerResult.equals("OK")) {
+            return ownerResult;
+        }
+
         String contactsResult = verifyContacts(inputRestCard);
         if (!contactsResult.equals("OK")) {
             return contactsResult;
@@ -167,6 +172,13 @@ public class RestCardVerificationService {
             return "A CVV nem érvényes, 3 számjegyből kell állnia. Például: 408";
         }
 
+        return "OK";
+    }
+
+    private String verifyOwner(RestCard inputRestCard) {
+        if (inputRestCard.getOwner() == null) {
+            return "Nem került megadásra kártyatulajdonos!";
+        }
         return "OK";
     }
 
