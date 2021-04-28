@@ -30,4 +30,238 @@
   <con:entry key="Domain" value=""/>
   <con:entry key="Tool Args" value=""/>
   <con:entry key="Save Project" value="false"/>
-</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:RestService" id="40a7151d-7379-44b4-8907-6034463b4aac" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:7001/cardservice" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>http://localhost:7001/cardservice</con:endpoint></con:endpoints><con:resource name="Ecards" path="/ecards/{cardNumber}" id="9582fd6d-3a59-4ca8-a561-e81fef47d807"><con:settings/><con:parameters><con:parameter><con:name>cardNumber</con:name><con:value/><con:style>TEMPLATE</con:style><con:default/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="Ecards 1" id="6910cfae-89ff-4122-83c0-09f0d4db5c7d" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:ns="http://localhost/cardservice/ecards/4485435174632343">ns:Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType>application/json</con:mediaType><con:status>404</con:status><con:params/><con:element xmlns:ns="http://localhost/cardservice/ecards/4485435174632343">ns:Fault</con:element></con:representation><con:request name="GetVisaCard" id="8939f4a4-d843-4b60-b1a9-1b9ea771c206" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request/><con:originalUri>http://localhost/cardservice/ecards/4485435174632343</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="cardNumber" value="4485435174632343" xmlns="http://eviware.com/soapui/config"/></con:parameters><con:parameterOrder><con:entry>cardNumber</con:entry></con:parameterOrder></con:request></con:method></con:resource></con:interface><con:testSuite id="11b5a387-899a-4123-8a71-33378f32baa1" name="Basic tests"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="151f63bd-1b53-4f3d-8c24-c0071521f873" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Request cards" searchProperties="true"><con:settings/><con:testStep type="restrequest" name="GetVisaCard" id="a6295407-6397-4d93-997b-110c56b39ca4"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/{cardNumber}" methodName="Ecards 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="GetVisaCard" id="8939f4a4-d843-4b60-b1a9-1b9ea771c206" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request/><con:originalUri>http://localhost/cardservice/ecards/4485435174632343</con:originalUri><con:assertion type="JsonPath RegEx Match" id="117feca8-1306-417e-8594-77d73d5f0f6e" name="CardType contains VISA"><con:configuration><path>$.cardType</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments><regEx>VISA.+</regEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="cardNumber" value="4485435174632343" xmlns="http://eviware.com/soapui/config"/></con:parameters><con:parameterOrder><con:entry>cardNumber</con:entry></con:parameterOrder></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
+</xml-fragment>]]></con:setting></con:settings><con:interface xsi:type="con:RestService" id="40a7151d-7379-44b4-8907-6034463b4aac" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:7001/cardservice" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>http://localhost:7001/cardservice</con:endpoint></con:endpoints><con:resource name="RequestCard" path="/ecards/{cardNumber}" id="9582fd6d-3a59-4ca8-a561-e81fef47d807"><con:settings/><con:parameters><con:parameter><con:name>cardNumber</con:name><con:value/><con:style>TEMPLATE</con:style><con:default/><con:description xsi:nil="true"/></con:parameter></con:parameters><con:method name="Ecards 1" id="6910cfae-89ff-4122-83c0-09f0d4db5c7d" method="GET"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:ns="http://localhost/cardservice/ecards/4485435174632343">ns:Response</con:element></con:representation><con:representation type="FAULT"><con:mediaType>application/json</con:mediaType><con:status>404</con:status><con:params/><con:element xmlns:ns="http://localhost/cardservice/ecards/4485435174632343">ns:Fault</con:element></con:representation><con:request name="GetVisaCard" id="8939f4a4-d843-4b60-b1a9-1b9ea771c206" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request/><con:originalUri>http://localhost/cardservice/ecards/4485435174632343</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="cardNumber" value="4485435174632343" xmlns="http://eviware.com/soapui/config"/></con:parameters><con:parameterOrder><con:entry>cardNumber</con:entry></con:parameterOrder></con:request></con:method></con:resource><con:resource name="CreateCard" path="/ecards/" id="d38c6188-8c9b-40e5-bc19-ca2b6c408570"><con:settings/><con:parameters/><con:method name="Method 1" id="b3c59278-16af-42a2-ba0e-e18d178b8a29" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>application/json</con:mediaType><con:status>400 415 500</con:status><con:params/><con:element xmlns:ecar="http://localhost/cardservice/ecards/">ecar:Fault</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="REQUEST"><con:mediaType>application/x-www-form-urlencoded</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>200</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="CreateValidVisaCard" id="89cc0992-72c7-409f-bfd1-bead56dd46b7" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "VISA CLASSIC BANKKÁRTYA",
+    "cardNumber": "4556708156637496",
+    "validThru": "04/23",
+    "CVV": "625",
+    "owner": "Példa Péter",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "PELDA.PETER@GMAIL.COM"
+        },
+        {
+            "type": "SMS",
+            "contact": "+36301234567"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:request><con:request name="CreateValidMasterCardToSameOwnerWithNoContacts" id="c5a910d7-9f03-42af-8f01-366d9a575123" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD WORLD GOLD BANKKÁRTYA",
+    "cardNumber": "5150332574605725",
+    "validThru": "06/25",
+    "CVV":"323",
+    "owner": "PÉLDA PÉTER",
+    "contactInfo": [ ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request><con:request name="CreateCardWithNotExistingType" id="271134c1-25ef-4645-8052-26d91b941cd6" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "ILYEN TÍPUS NINCS AZ ADATBÁZISBAN",
+    "cardNumber": "5351863839978611",
+    "validThru": "07/23",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request><con:request name="CreateCardWithTooShortCardNumber" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5",
+    "validThru": "07/23",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource></con:interface><con:testSuite id="11b5a387-899a-4123-8a71-33378f32baa1" name="Basic tests"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="82b2453e-1d7d-4196-ab8a-fd7c95808e83" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Create cards - Should work" searchProperties="true"><con:settings/><con:testStep type="restrequest" name="CreateValidVisaCard" id="20df3ad8-18b6-462a-8d70-6637499f7281"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateValidVisaCard" id="89cc0992-72c7-409f-bfd1-bead56dd46b7" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "VISA CLASSIC BANKKÁRTYA",
+    "cardNumber": "4556708156637496",
+    "validThru": "04/23",
+    "CVV": "625",
+    "disabled": false,
+    "owner": "Példa Péter",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "PELDA.PETER@GMAIL.COM"
+        },
+        {
+            "type": "SMS",
+            "contact": "+36301234567"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="fb768922-16e1-451f-adcb-fca7b034e148" name="Server should return HTTP 200 (OK)"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateValidMasterCardToSameOwnerWithNoContacts" id="b0f22776-60b4-45f8-9c54-21499eb8eac4"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateValidMasterCardToSameOwnerWithNoContacts" id="c5a910d7-9f03-42af-8f01-366d9a575123" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD WORLD GOLD BANKKÁRTYA",
+    "cardNumber": "5150332574605725",
+    "validThru": "06/25",
+    "CVV":"323",
+    "owner": "PÉLDA PÉTER",
+    "contactInfo": [ ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="d8b54bf3-aaf3-4e99-8faa-69f492226861" name="Server should return HTTP 200 (OK)"><con:configuration><codes>200</codes></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="4856145c-e0ab-446b-b8c9-db5d3b6428b0" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Create cards - Should not work" searchProperties="true"><con:settings/><con:testStep type="restrequest" name="CreateCardWithNotExistingType" id="4d12c1a8-8021-43d8-80a8-a458976dcf3f"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithNotExistingType" id="271134c1-25ef-4645-8052-26d91b941cd6" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "ILYEN TÍPUS NINCS AZ ADATBÁZISBAN",
+    "cardNumber": "5351863839978611",
+    "validThru": "07/23",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="7ad9f7c1-e823-470b-939a-efa87b9b05ac" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="2e1b8d65-7242-400c-9db3-5ee3df2c2306" name="Should give error message for not existing card type"><con:configuration><path>$.message</path><content>A megadott kártyatípus nem található az adatbázisban.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithoutCardNumber" id="38bc7c30-a6d3-4131-a7cc-14c375805c71"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithoutCardNumber" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "validThru": "07/23",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with missing card number"><con:configuration><path>$.message</path><content>Nem került megadásra kártyaszám!</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithTooShortCardNumber" id="d065dad7-0f2c-4408-b9ab-db232a9e07b5"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithTooShortCardNumber" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5",
+    "validThru": "07/23",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with invalid card number"><con:configuration><path>$.message</path><content>A megadott MasterCard kártyaszám nem érvényes!</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithTooLongCardNumber" id="c99e3f8e-90eb-4e56-801e-10e41ec37421"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithTooLongCardNumber" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "535186383997861100000000000000000000",
+    "validThru": "07/23",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with invalid card number"><con:configuration><path>$.message</path><content>A megadott MasterCard kártyaszám nem érvényes!</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithNotDigitOnlyCardNumber" id="0f85b12a-346f-4e34-bac9-1d70844c49ab"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithNotDigitOnlyCardNumber" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5351-8638-3997-8611",
+    "validThru": "07/23",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with invalid card number"><con:configuration><path>$.message</path><content>A megadott MasterCard kártyaszám nem érvényes!</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateMasterCardWithVisaNumber" id="2c519031-ebeb-4dc9-ad3f-2ac4c617156f"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithInvalidMasterCardNumber" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "4485289472617682",
+    "validThru": "07/23",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with invalid card number"><con:configuration><path>$.message</path><content>A megadott MasterCard kártyaszám nem érvényes!</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithoutValidThruDate" id="6e97edc9-15a8-4cdc-b276-55b9d221b9cf"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithoutValidThruDate" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5351863839978611",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with missing validthru"><con:configuration><path>$.message</path><content>Nem került megadásra érvényességi dátum!</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithWrongValidThruFormat" id="b01f5acf-8bcb-4bde-a6ac-f011d60d1f46"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithWrongValidThruFormat" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5351863839978611",
+    "validThru": "0023",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with invalid validthru"><con:configuration><path>$.message</path><content>Az érvényességi idő nem érvényes, MM/YY formátumnak kell lennie. Például: 04/23 (2023. április)</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithTooLowExpireMonth" id="4d14e115-20d5-4e8c-9f8a-ce841f77f1a4"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithInvalidExpireMonth" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5351863839978611",
+    "validThru": "00/23",
+    "CVV": "343",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with invalid validthru"><con:configuration><path>$.message</path><content>Az érvényességi idő hónapja nem érvényes, 01 és 12 közötti szám lehet. Például: 04/23 (2023. április)</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithTooHighExpireMonth" id="1bcbcea2-f037-416a-aca7-845f89224687"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithTooHighExpireMonth" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5351863839978611",
+    "validThru": "13/23",
+    "CVV": "343",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with invalid validthru"><con:configuration><path>$.message</path><content>Az érvényességi idő hónapja nem érvényes, 01 és 12 közötti szám lehet. Például: 04/23 (2023. április)</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithoutCVV" id="45cd594d-a811-460b-89d9-d265e1e6b53a"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithoutCVV" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5351863839978611",
+    "validThru": "05/23",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with missing cvv"><con:configuration><path>$.message</path><content>Nem került megadásra CVV kód!</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithTooShortCVV" id="802351d9-a8cc-4837-8682-ef5f969510df"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithTooShortCVV" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5351863839978611",
+    "validThru": "05/23",
+    "CVV": "1",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with invalid cvv"><con:configuration><path>$.message</path><content>A CVV nem érvényes, 3 számjegyből kell állnia. Például: 408</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithTooLongCVV" id="623348b1-4918-4721-b07a-83c9d9832996"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithTooLongCVV" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5351863839978611",
+    "validThru": "05/23",
+    "CVV": "4444",
+    "owner": "Nem Kellene Itt Lennem",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with invalid cvv"><con:configuration><path>$.message</path><content>A CVV nem érvényes, 3 számjegyből kell állnia. Például: 408</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:testStep type="restrequest" name="CreateCardWithoutOwner" id="d7ebfc45-5b49-4923-8a2c-5f5c06fa328b"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/" methodName="Method 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="CreateCardWithoutOwner" id="f3d75508-a6af-4cd3-8641-1b6e2d18f9bd" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request>{
+    "cardType": "MASTERCARD STANDARD BANKKÁRTYA",
+    "cardNumber": "5351863839978611",
+    "validThru": "05/23",
+    "CVV": "343",
+    "contactInfo": [
+        {
+            "type": "EMAIL",
+            "contact": "NEM.KELLENE@ITT.LENNEM.COM"
+        }
+    ]
+}</con:request><con:originalUri>http://localhost/cardservice/ecards/</con:originalUri><con:assertion type="Valid HTTP Status Codes" id="99c5e5ba-b7bb-4c67-b2f0-7ed7ab92a50d" name="Server should return HTTP 500"><con:configuration><codes>500</codes></con:configuration></con:assertion><con:assertion type="JsonPath Match" id="250dbf02-93da-41b0-9672-ce0d00508c7a" name="Should give error message with invalid card number"><con:configuration><path>$.message</path><content>A CVV nem érvényes, 3 számjegyből kell állnia. Például: 408</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="151f63bd-1b53-4f3d-8c24-c0071521f873" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Request cards" searchProperties="true"><con:settings/><con:testStep type="restrequest" name="GetVisaCard" id="a6295407-6397-4d93-997b-110c56b39ca4"><con:settings/><con:config service="http://localhost:7001/cardservice" resourcePath="/ecards/{cardNumber}" methodName="Ecards 1" xsi:type="con:RestRequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:restRequest name="GetVisaCard" id="8939f4a4-d843-4b60-b1a9-1b9ea771c206" mediaType="application/json"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7001/cardservice</con:endpoint><con:request/><con:originalUri>http://localhost/cardservice/ecards/4485435174632343</con:originalUri><con:assertion type="JsonPath RegEx Match" id="117feca8-1306-417e-8594-77d73d5f0f6e" name="CardType contains VISA"><con:configuration><path>$.cardType</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments><regEx>VISA.+</regEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><entry key="cardNumber" value="4485435174632343" xmlns="http://eviware.com/soapui/config"/></con:parameters><con:parameterOrder><con:entry>cardNumber</con:entry></con:parameterOrder></con:restRequest></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
