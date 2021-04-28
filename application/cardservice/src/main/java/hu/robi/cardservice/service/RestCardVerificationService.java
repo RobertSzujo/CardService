@@ -189,6 +189,10 @@ public class RestCardVerificationService {
             String contactType = restContact.getType();
             String contact = restContact.getContact();
 
+            if (contactType == null) {
+                return "Nem került megadásra a kapcsolat típusa!";
+            }
+
             if (!contactType.equals("SMS") && !contactType.equals("EMAIL")) {
                 return "A kapcsolat típusa nem megfelelő, csak a következő értékek adhatóak meg: EMAIL (e-mail cím esetén) vagy SMS (telefonszám esetén)";
             }
@@ -200,6 +204,7 @@ public class RestCardVerificationService {
                 return "A felvett telefonszám (" + contact + ") nem megfelelő formátumú. Csak nemzetközi formátum fogadható el, +(országkód) kezdettel. Példa helyes formátumra: +36301234567";
             }
         }
+
 
         return "OK";
     }

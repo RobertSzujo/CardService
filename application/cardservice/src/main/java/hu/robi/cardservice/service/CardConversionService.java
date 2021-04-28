@@ -117,7 +117,7 @@ public class CardConversionService {
         List<Contact> contactList = cardOwner.getContacts();
 
         if (contactList == null) {
-            if (inputRestContactList.size() == 0) {
+            if (inputRestContactList.isEmpty()) {
                 logger.warn("Hiba a kártya létrehozása során: Nincs a kártyatulajdonosnak elérhetősége!");
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "A kártyatulajdonosnak nincs elérhetősége, legalább egyet meg kell adni!");
             } else {

@@ -4,6 +4,7 @@ package hu.robi.cardservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -24,7 +25,7 @@ public class RestCard {
 
     private String owner;
 
-    private List<RestContact> contactInfo;
+    private List<RestContact> contactInfo = new ArrayList<>();
 
     //define getters/setters
 
