@@ -37,6 +37,10 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="oracle" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -86,7 +90,7 @@
       <option name="presentableId" value="Default" />
       <updated>1619683911824</updated>
       <workItem from="1619683918291" duration="465000" />
-      <workItem from="1619762307758" duration="7854000" />
+      <workItem from="1619762307758" duration="8689000" />
     </task>
     <servers />
   </component>

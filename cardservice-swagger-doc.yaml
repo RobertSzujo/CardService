@@ -2,10 +2,8 @@ openapi: 3.0.3
 info:
   title: CardService API
   description: A Spring Boot application with REST API for storing, requesting and validating debit cards. This application is connected to an Oracle SQL server for storing card data.
-  version: '1.0'
+  version: '1.0.4'
 servers:
-  - url: 'http://localhost:8080'
-    description: Running as standalone application on local computer
   - url: 'http://localhost:7001/cardservice'
     description: Running on a local WebLogic server (using default port)
 tags:
