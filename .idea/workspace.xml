@@ -46,6 +46,26 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CardserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="application.cardservice.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="hu.robi.cardservice.CardserviceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -55,7 +75,7 @@
       <option name="presentableId" value="Default" />
       <updated>1619683911824</updated>
       <workItem from="1619683918291" duration="465000" />
-      <workItem from="1619762307758" duration="2774000" />
+      <workItem from="1619762307758" duration="5362000" />
     </task>
     <servers />
   </component>

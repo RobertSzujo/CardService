@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -152,9 +153,9 @@ public class RestCardVerificationService {
             return "Az érvényességi idő nem érvényes, MM/YY formátumnak kell lennie. Például: 04/23 (2023. április)";
         }
 
-        int validThruMonth = Integer.parseInt(validThru.substring(0, 2));
-        if (validThruMonth > 12 || validThruMonth < 1) {
-            return "Az érvényességi idő hónapja nem érvényes, 01 és 12 közötti szám lehet. Például: 04/23 (2023. április)";
+        String validThruDateResult = verifyValidThruDate(validThru);
+        if (!validThruDateResult.equals("OK")) {
+            return validThruDateResult;
         }
 
         return "OK";
@@ -205,6 +206,27 @@ public class RestCardVerificationService {
             }
         }
 
+
+        return "OK";
+    }
+
+    //helper methods
+
+    private String verifyValidThruDate(String validThru) {
+        int validThruMonth = Integer.parseInt(validThru.substring(0, 2));
+        int validThruYear = Integer.parseInt(validThru.substring(3, 5));
+
+        if (validThruMonth > 12 || validThruMonth < 1) {
+            return "Az érvényességi idő hónapja nem érvényes, 01 és 12 közötti szám lehet. Például: 04/23 (2023. április)";
+        }
+
+        LocalDate currentDate = LocalDate.now();
+        LocalDate expiryDateInitial = LocalDate.of(2000 + validThruYear, validThruMonth, 1);
+        LocalDate expiryDate = expiryDateInitial.withDayOfMonth(expiryDateInitial.lengthOfMonth());
+
+        if (currentDate.isAfter(expiryDate)) {
+            return "A megadott érvényességi idő nem érvényes, mert múltbéli dátumra mutat!";
+        }
 
         return "OK";
     }

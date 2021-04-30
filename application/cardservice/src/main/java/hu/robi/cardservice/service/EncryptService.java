@@ -19,8 +19,8 @@ public class EncryptService {
 
     //define fields
 
-    private SecretKeyFactory secretKeyFactory;
     Logger logger = LoggerFactory.getLogger(EncryptService.class);
+    private SecretKeyFactory secretKeyFactory;
 
     //define constructor
 
@@ -28,7 +28,7 @@ public class EncryptService {
         try {
             secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         } catch (NoSuchAlgorithmException e) {
-            logger.error("Hiba az EncryptService létrehozása során: " +e.getMessage());
+            logger.error("Hiba az EncryptService létrehozása során: " + e.getMessage());
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
@@ -59,7 +59,7 @@ public class EncryptService {
         try {
             hash = secretKeyFactory.generateSecret(keySpec).getEncoded();
         } catch (InvalidKeySpecException e) {
-            logger.error("Hiba a hash készítése közben: " +e.getMessage());
+            logger.error("Hiba a hash készítése közben: " + e.getMessage());
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
 

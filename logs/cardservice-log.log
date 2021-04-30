@@ -1,0 +1,12 @@
+2021-04-30 09:36:54,638 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 15872 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
+2021-04-30 09:36:54,643 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-04-30 09:36:54,644 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-04-30 09:37:00,231 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 6.381 seconds (JVM running for 7.596)
+2021-04-30 09:38:23,221 INFO hu.robi.cardservice.rest.CardRestController [http-nio-8080-exec-1] Kártya létrehozása: 4024007101532579
+2021-04-30 09:38:23,221 DEBUG hu.robi.cardservice.service.CardConversionService [http-nio-8080-exec-1] RestCard objektum átalakítása Card objektummá: 4024007101532579
+2021-04-30 09:38:23,657 WARN hu.robi.cardservice.service.CardConversionService [http-nio-8080-exec-1] Hiba a 4024007101532579 kártya létrehozása során: A megadott érvényességi idő nem érvényes, mert múltbéli dátumra mutat!
+2021-04-30 09:38:34,661 INFO hu.robi.cardservice.rest.CardRestController [http-nio-8080-exec-3] Kártya létrehozása: 4024007101532579
+2021-04-30 09:38:34,661 DEBUG hu.robi.cardservice.service.CardConversionService [http-nio-8080-exec-3] RestCard objektum átalakítása Card objektummá: 4024007101532579
+2021-04-30 09:38:34,957 DEBUG hu.robi.cardservice.service.CardConversionService [http-nio-8080-exec-3] RestCard objektum sikeresen átalakítva Card objektummá: 4024007101532579
+2021-04-30 09:38:35,064 DEBUG hu.robi.cardservice.service.CardSessionServiceImpl [http-nio-8080-exec-3] Kártya sikeresen mentve az adatbázisban: 4024007101532579
+2021-04-30 09:38:35,064 INFO hu.robi.cardservice.rest.CardRestController [http-nio-8080-exec-3] Kártya létrehozása sikeres: 4024007101532579
