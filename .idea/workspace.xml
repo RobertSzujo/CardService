@@ -46,7 +46,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Database Script.01_create_database.sql">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -58,6 +58,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="01_create_database.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/sql/01_create_database.sql" />
+      <script-mode>FILE</script-mode>
+      <method v="2" />
+    </configuration>
     <configuration name="CardserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="application.cardservice.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="hu.robi.cardservice.CardserviceApplication" />
@@ -65,6 +70,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Database Script.01_create_database.sql" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -75,7 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1619683911824</updated>
       <workItem from="1619683918291" duration="465000" />
-      <workItem from="1619762307758" duration="5362000" />
+      <workItem from="1619762307758" duration="6353000" />
     </task>
     <servers />
   </component>
