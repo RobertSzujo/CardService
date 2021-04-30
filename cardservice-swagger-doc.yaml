@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: CardService API
   description: A Spring Boot application with REST API for storing, requesting and validating debit cards. This application is connected to an Oracle SQL server for storing card data.
-  version: '1.0.4'
+  version: '1.0.5'
 servers:
   - url: 'http://localhost:7001/cardservice'
     description: Running on a local WebLogic server (using default port)
@@ -45,7 +45,7 @@ paths:
           content:
             '*/*':
               schema:
-                type: string
+                $ref: '#/components/schemas/ValidationResponse'
         '500':
           description: Internal server error - This code appears if the requested card was not found, or if something went wrong during the validation process. - A detailed error message can be seen in the message section.
   '/ecards/{cardNumber}':
@@ -165,3 +165,10 @@ components:
         type:
           type: string
           description: Type of the contact. Only EMAIL or SMS is accepted.
+    ValidationResponse:
+      title: Response of card validation
+      type: object
+      properties:
+        result:
+          type: string
+          description: Name of the card owner. The input data will be converted to uppercase characters.

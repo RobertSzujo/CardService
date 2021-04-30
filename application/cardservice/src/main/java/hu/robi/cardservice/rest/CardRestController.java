@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/ecards")
 public class CardRestController {
@@ -40,12 +43,15 @@ public class CardRestController {
 
     //add mapping for POST /ecards/validate - validate card
     @PostMapping("/validate")
-    public String validateCard(@RequestBody RestCard theRestCard) {
+    public Map validateCard(@RequestBody RestCard theRestCard) {
         logger.info("Kártya ellenőrzése: " + theRestCard.getCardNumber());
-        String result = cardSessionService.validateCard(theRestCard);
+        String validationResult = cardSessionService.validateCard(theRestCard);
 
-        logger.info("Kártya ellenőrzése megtörtént: " + theRestCard.getCardNumber() + " - Eredmény: " + result);
-        return result;
+        logger.info("Kártya ellenőrzése megtörtént: " + theRestCard.getCardNumber() + " - Eredmény: " + validationResult);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("result", validationResult);
+        return response;
     }
 
     //add mapping for PUT /ecards/{cardNumber}
