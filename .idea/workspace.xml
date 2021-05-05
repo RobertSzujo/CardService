@@ -27,6 +27,13 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -51,16 +58,19 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Robi\Documents\cardservice\application\cardservice\src\main\resources\static" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.CardserviceApplication">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -76,6 +86,22 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="SwaggerCodegen">
+      <option name="activeConfigurationType" value="FILE" />
+      <option name="configurationPath" value="" />
+      <option name="customJreEnabled" value="false" />
+      <option name="customTemplatesPath" value="" />
+      <option name="enableDebugLogging" value="false" />
+      <option name="generateToPath" value="C:\Users\Robi\Documents\cardservice\gen" />
+      <option name="generationParameters">
+        <list />
+      </option>
+      <option name="generatorPath" value="https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/5.0.0/openapi-generator-cli-5.0.0.jar" />
+      <option name="jdkPath" value="" />
+      <option name="language" value="java" />
+      <option name="specificationPath" value="C:\Users\Robi\Documents\cardservice\application\cardservice\src\main\resources\static\cardservice-swagger-doc.yaml" />
+      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
@@ -93,7 +119,8 @@
       <updated>1619683911824</updated>
       <workItem from="1619683918291" duration="465000" />
       <workItem from="1619762307758" duration="8689000" />
-      <workItem from="1619782238077" duration="977000" />
+      <workItem from="1619782238077" duration="1749000" />
+      <workItem from="1620206672954" duration="2746000" />
     </task>
     <servers />
   </component>

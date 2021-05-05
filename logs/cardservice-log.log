@@ -1,16 +1,39 @@
-2021-04-30 09:36:54,638 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 15872 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
-2021-04-30 09:36:54,643 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
-2021-04-30 09:36:54,644 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
-2021-04-30 09:37:00,231 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 6.381 seconds (JVM running for 7.596)
-2021-04-30 09:38:23,221 INFO hu.robi.cardservice.rest.CardRestController [http-nio-8080-exec-1] Kártya létrehozása: 4024007101532579
-2021-04-30 09:38:23,221 DEBUG hu.robi.cardservice.service.CardConversionService [http-nio-8080-exec-1] RestCard objektum átalakítása Card objektummá: 4024007101532579
-2021-04-30 09:38:23,657 WARN hu.robi.cardservice.service.CardConversionService [http-nio-8080-exec-1] Hiba a 4024007101532579 kártya létrehozása során: A megadott érvényességi idő nem érvényes, mert múltbéli dátumra mutat!
-2021-04-30 09:38:34,661 INFO hu.robi.cardservice.rest.CardRestController [http-nio-8080-exec-3] Kártya létrehozása: 4024007101532579
-2021-04-30 09:38:34,661 DEBUG hu.robi.cardservice.service.CardConversionService [http-nio-8080-exec-3] RestCard objektum átalakítása Card objektummá: 4024007101532579
-2021-04-30 09:38:34,957 DEBUG hu.robi.cardservice.service.CardConversionService [http-nio-8080-exec-3] RestCard objektum sikeresen átalakítva Card objektummá: 4024007101532579
-2021-04-30 09:38:35,064 DEBUG hu.robi.cardservice.service.CardSessionServiceImpl [http-nio-8080-exec-3] Kártya sikeresen mentve az adatbázisban: 4024007101532579
-2021-04-30 09:38:35,064 INFO hu.robi.cardservice.rest.CardRestController [http-nio-8080-exec-3] Kártya létrehozása sikeres: 4024007101532579
-2021-04-30 13:36:00,445 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 7452 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
-2021-04-30 13:36:00,451 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
-2021-04-30 13:36:00,452 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
-2021-04-30 13:36:07,674 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 8.259 seconds (JVM running for 10.093)
+2021-05-05 11:42:13,701 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 13944 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
+2021-05-05 11:42:13,710 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-05-05 11:42:13,711 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-05 11:42:22,357 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 9.408 seconds (JVM running for 10.863)
+2021-05-05 11:44:24,633 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 13492 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
+2021-05-05 11:44:24,637 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-05-05 11:44:24,638 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-05 11:44:32,933 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 9.138 seconds (JVM running for 10.665)
+2021-05-05 11:45:38,981 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 3044 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
+2021-05-05 11:45:38,987 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-05-05 11:45:38,988 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-05 11:45:44,975 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 6.691 seconds (JVM running for 7.837)
+2021-05-05 11:46:05,767 INFO hu.robi.cardservice.rest.CardRestController [http-nio-8080-exec-7] Kártya létrehozása: string
+2021-05-05 11:46:05,768 DEBUG hu.robi.cardservice.service.CardConversionService [http-nio-8080-exec-7] RestCard objektum átalakítása Card objektummá: string
+2021-05-05 11:46:05,994 WARN hu.robi.cardservice.service.CardConversionService [http-nio-8080-exec-7] Hiba a string kártya létrehozása során: A megadott kártyatípus nem található az adatbázisban.
+2021-05-05 11:49:30,532 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 15060 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
+2021-05-05 11:49:30,536 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-05-05 11:49:30,537 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-05 11:49:37,304 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 7.495 seconds (JVM running for 8.554)
+2021-05-05 11:52:15,080 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 2220 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
+2021-05-05 11:52:15,085 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-05-05 11:52:15,086 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-05 11:52:20,705 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 6.264 seconds (JVM running for 7.769)
+2021-05-05 11:57:26,557 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 10488 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
+2021-05-05 11:57:26,562 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-05-05 11:57:26,563 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-05 11:57:33,942 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 8.097 seconds (JVM running for 9.285)
+2021-05-05 11:59:59,662 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 3368 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
+2021-05-05 11:59:59,667 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-05-05 11:59:59,667 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-05 12:00:05,059 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 6.047 seconds (JVM running for 7.053)
+2021-05-05 12:00:56,508 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 11816 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
+2021-05-05 12:00:56,513 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-05-05 12:00:56,513 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-05 12:01:02,603 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 6.69 seconds (JVM running for 7.68)
+2021-05-05 12:02:35,794 INFO org.springframework.boot.StartupInfoLogger [main] Starting CardserviceApplication using Java 1.8.0_281 on ROBI-PC with PID 12672 (C:\Users\Robi\Documents\cardservice\application\cardservice\build\classes\java\main started by Robi in C:\Users\Robi\Documents\cardservice)
+2021-05-05 12:02:35,799 DEBUG org.springframework.boot.StartupInfoLogger [main] Running with Spring Boot v2.4.4, Spring v5.3.5
+2021-05-05 12:02:35,799 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-05 12:02:42,218 INFO org.springframework.boot.StartupInfoLogger [main] Started CardserviceApplication in 7.11 seconds (JVM running for 8.202)
